@@ -5,6 +5,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
 
+const { NotFoundError } = require("./expressError");
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
