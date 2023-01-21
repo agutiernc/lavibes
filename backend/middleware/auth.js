@@ -24,7 +24,7 @@ function authenticateJWT(req, res, next) {
 
     return next();
   } catch (err) {
-    return next()
+    return next(err);
   }
 }
 
@@ -42,8 +42,52 @@ function ensureLoggedIn(req, res, next) {
 
     return next();
   } catch (err) {
-    return next()
+    return next(err);
   }
 }
 
 // add requireAdmin and ensureAdminOrCorrectUser
+
+/** Middleware for admin only actions
+ * 
+ * Admin can create, update, and delete
+ */
+
+function requireAdmin(req, res, next) {
+  try {
+    if (!res.locals.user || !res.locals.user.isAdmin) {
+      throw new UnauthorizedError();
+    }
+
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+}
+
+/** Middleware for admin or correct user only actions
+ *  
+ *  if not user, throw an unauthorized error
+ */
+
+function ensureAdminOrCorrectUser(req, res, next) {
+  const user = res.locals.user;
+  const validUsername = user.username === req.params.username;
+
+  try {
+    if (!(user && (user.isAdmin || validUsername))) {
+      throw new UnauthorizedError;
+    }
+
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+}
+
+module.exports = {
+  requireAdmin,
+  ensureAdminOrCorrectUser,
+  authenticateJWT,
+  ensureLoggedIn
+};

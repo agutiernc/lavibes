@@ -118,6 +118,9 @@ class User {
    *
    * Returns { username, first_name, last_name, is_admin, jobs }
    *   where jobs is { id, title, company_handle, company_name, state }
+   *   where events is:
+   *    { id, artist, start_time, end_time, location, contact, contact_info, district, year }
+   * 
    *
    * Throws NotFoundError if user not found.
    **/
@@ -138,7 +141,7 @@ class User {
 
     if (!user) throw new NotFoundError(`No user: ${username}`);
 
-    // ** uncomment and test this code with events_user table
+    // ** TEST this code with events_user table
     // const userEventsRes = await db.query(
     //         `SELECT e.event_id
     //          FROM user_events AS e
@@ -181,8 +184,7 @@ class User {
       data.password = await bcrypt.hash(data.password, BCRYPT_WORK_FACTOR);
     }
 
-    const { setCols, values } = sqlForPartialUpdate(
-        data,
+    const { setCols, values } = sqlForPartialUpdate(data,
         {
           firstName: "first_name",
           lastName: "last_name",
@@ -213,7 +215,7 @@ class User {
 
   /** Delete given user from database; returns undefined. */
 
-  static async remove(username) {
+  static async delete(username) {
     let result = await db.query(
           `DELETE
            FROM users
@@ -226,7 +228,45 @@ class User {
 
     if (!user) throw new NotFoundError(`No user: ${username}`);
   }
+
+
+  // add function for saving events for user
+
+  static async saveEvent(username, eventId) {
+    const verifyEvent = await db.query(`
+        SELECT id
+        FROM events
+        WHERE id = $1
+    `, [eventId]);
+
+    const event = verifyEvent.rows[0];
+
+    if (!event) {
+      throw new NotFoundError(`Invalid event id: ${eventId}`);
+    }
+
+    const verifyUsername = await db.query(`
+        SELECT username
+        FROM users
+        WHERE username = $1
+      `, [username]);
+    
+    const user = verifyUsername.rows[0];
+
+    if (!user) {
+      throw new NotFoundError(`Invalid username: ${username}`);
+    }
+
+    await db.query(`
+      INSERT INTO user_events (event_id, username)
+        VALUES ($1, $2)
+    `, [eventId, username]);
+  }
 }
+
+
+// temporary => testadmin - password
+// token => eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NDI3OTU2OX0.qO4J20NZRj_qy6faBiH1fCjQIbC60sHOs7-ZWSgnWbQ
 
 
 module.exports = User;
