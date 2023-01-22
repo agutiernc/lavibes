@@ -51,6 +51,7 @@ class User {
     throw new UnauthorizedError("Invalid username/password");
   }
 
+
   /** Register user with data.
    *
    * Returns { username, firstName, lastName, email, isAdmin }
@@ -95,6 +96,7 @@ class User {
     return result.rows[0];
   }
 
+
   /** Find all users.
    *
    * Returns [{ username, first_name, last_name, email, is_admin }, ...]
@@ -114,6 +116,7 @@ class User {
     return result.rows;
   }
 
+  
   /** Given a username, return data about user.
    *
    * Returns { username, first_name, last_name, is_admin, jobs }
@@ -142,12 +145,12 @@ class User {
     if (!user) throw new NotFoundError(`No user: ${username}`);
 
     // ** TEST this code with events_user table
-    // const userEventsRes = await db.query(
-    //         `SELECT e.event_id
-    //          FROM user_events AS e
-    //          WHERE e.username = $1`, [username]);
+    const userEventsRes = await db.query(
+            `SELECT e.event_id
+             FROM user_events AS e
+             WHERE e.username = $1`, [username]);
     
-    // user.events = userEventsRes.rows.map(e => e.event_id);
+    user.events = userEventsRes.rows.map(e => e.event_id);
 
     // =========== remove code below =====
 
@@ -231,7 +234,7 @@ class User {
 
 
   // add function for saving events for user
-
+  // TEST when events Model/Routes done
   static async saveEvent(username, eventId) {
     const verifyEvent = await db.query(`
         SELECT id

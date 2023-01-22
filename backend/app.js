@@ -21,10 +21,12 @@ app.use(authenticateJWT);
 app.use("/auth", authRoutes);
 app.use("/users", usersRoutes);
 
+
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {
   return next(new NotFoundError());
 });
+
 
 /** Generic error handler; anything unhandled goes here. */
 app.use(function (err, req, res, next) {
@@ -37,5 +39,6 @@ app.use(function (err, req, res, next) {
     error: { message, status },
   });
 });
+
 
 module.exports = app;

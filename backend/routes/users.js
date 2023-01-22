@@ -89,4 +89,51 @@ router.get('/:username', ensureAdminOrCorrectUser, async function (req, res, nex
 });
 
 
+/** PATCH /[username] { user } => { user }
+ *
+ * Data can include:
+ *   { firstName, lastName, password, email }
+ *
+ * Returns { username, firstName, lastName, email, isAdmin }
+ *
+ * Authorization required: login (Must be admin or user's own)
+ **/
+
+router.patch('/:username', ensureAdminOrCorrectUser, async function (req, res, next) {
+  try {
+    const validator = jsonschema.validate(req.body, userUpdateSchema);
+
+    if (!validator.valid) {
+      const errs = validator.errors.map(e => e.stack);
+
+      throw new BadRequestError(errs);
+    }
+
+    const user = await User.update(req.params.username, req.body);
+
+    return res.json({ user });
+  } catch (err) {
+    return next(err);
+  }
+});
+
+
+/** DELETE /[username]  =>  { deleted: username }
+ *
+ * Authorization required: login (Must be admin or user's own)
+ **/
+
+router.delete('/:username', ensureAdminOrCorrectUser, async function (req, res, next) {
+  try {
+    const username = req.params.username;
+
+    await User.delete(username);
+
+    return res.json({ deleted: username });
+  } catch (err) {
+    return next(err);
+  }
+});
+
+
 module.exports = router;
