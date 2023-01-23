@@ -10,6 +10,7 @@ const { authenticateJWT } = require("./middleware/auth");
 
 const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users");
+const eventsRoutes = require("./routes/events");
 
 app.use(cors());
 app.use(express.json());
@@ -20,6 +21,7 @@ app.use(authenticateJWT);
 // routes
 app.use("/auth", authRoutes);
 app.use("/users", usersRoutes);
+app.use("/events", eventsRoutes);
 
 
 /** Handle 404 errors -- this matches everything */

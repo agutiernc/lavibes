@@ -11,11 +11,13 @@ CREATE TABLE users (
 CREATE TABLE events (
   id SERIAL PRIMARY KEY,
   artist VARCHAR(30),
-  event_date DATE NOT NULL,
-  start_time TIME NOT NULL,
-  end_time TIME,
+  organization VARCHAR(80),
+  event_date BIGINT NOT NULL,
+  start_time BIGINT NOT NULL,
+  end_time BIGINT,
   location TEXT NOT NULL,
-  contact TEXT NULL,
+  address TEXT NOT NULL,
+  contact TEXT,
   contact_info TEXT,
   district TEXT,
   year INTEGER NOT NULL

@@ -6,6 +6,10 @@ CREATE DATABASE concerts;
 \connect concerts
 
 \i schema.sql
+\i seed.sql
+
+\echo 'Delete and recreate concerts_test db?'
+\prompt 'Return for yes or control-C to cancel > ' foo
 
 DROP DATABASE concerts_test;
 CREATE DATABASE concerts_test;
