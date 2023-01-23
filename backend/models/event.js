@@ -110,7 +110,7 @@ class Event {
     const { setCols, values } = sqlForPartialUpdate(data, {});
     const idVaridx = '$' + (values.length + 1);
 
-    const querySql = `UPDATE evets
+    const querySql = `UPDATE events
                       SET ${setCols}
                       WHERE id = ${idVaridx}
                       RETURNING

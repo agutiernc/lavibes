@@ -75,4 +75,43 @@ router.get('/:id', async function (req, res, next) {
 });
 
 
+/** PATCH /[id] { fld1, fld2, ... } => { event }
+ *
+ * Patches event data.
+ *
+ * data can be: { artist, organization, event_date, start_time, end_time,
+ *                 location, address, contact, contact_info, district, year }
+ *
+ * Returns { id, artist, organization, event_date, start_time, end_time,
+ *            location, address, contact, contact_info, district, year }
+ *
+ * Authorization required: Admin only
+ */
+
+router.patch('/:id', requireAdmin, async function (req, res, next) {
+  try {
+    const event = await Event.update(req.params.id, req.body);
+
+    return res.json({ event });
+  } catch (err) {
+    return next(err);
+  }
+});
+
+
+/** Delete given event from database; returns undefined.
+*
+* Throws NotFoundError if company not found.
+**/
+
+router.delete('/:id', requireAdmin, async function (req, res, next) {
+  try {
+    await Event.delete(req.params.id);
+
+    return res.json({ deleted: `Event id ${req.params.id}` })
+  } catch (err) {
+    return next(err);
+  }
+})
+
 module.exports = router;
