@@ -152,15 +152,6 @@ class User {
     
     user.events = userEventsRes.rows.map(e => e.event_id);
 
-    // =========== remove code below =====
-
-    // const userApplicationsRes = await db.query(
-    //       `SELECT a.job_id
-    //        FROM applications AS a
-    //        WHERE a.username = $1`, [username]);
-
-    // user.applications = userApplicationsRes.rows.map(a => a.job_id);
-
     return user;
   }
 
@@ -233,8 +224,11 @@ class User {
   }
 
 
-  // add function for saving events for user
-  // TEST when events Model/Routes done
+  /** User can save an event
+   * 
+   * user_events data contains username and eventId
+   */
+
   static async saveEvent(username, eventId) {
     const verifyEvent = await db.query(`
         SELECT id

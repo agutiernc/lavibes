@@ -136,4 +136,26 @@ router.delete('/:username', ensureAdminOrCorrectUser, async function (req, res, 
 });
 
 
+/** POST /[username]/events/[id]
+ * 
+ * Returns => { 'saved': eventId }
+ * 
+ * Authorization required: Admin or user with username
+ */
+
+router.post('/:username/events/:id', ensureAdminOrCorrectUser, async (req, res, next) => {
+  try {
+    const eventId = +req.params.id;
+
+    await User.saveEvent(req.params.username, eventId);
+
+    return res.json({ saved: eventId });
+  } catch (err) {
+    return next(err);
+  }
+});
+
+
+// may need route to unsave event from user
+
 module.exports = router;
