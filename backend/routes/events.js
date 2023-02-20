@@ -1,6 +1,7 @@
 "use strict";
 
 /** Routes for jobs */
+const { readFile } =  require('fs/promises');
 
 const jsonschema = require("jsonschema");
 const express = require("express");
@@ -8,7 +9,7 @@ const express = require("express");
 const { BadRequestError } = require("../expressError");
 const { requireAdmin } = require("../middleware/auth");
 
-const Event = require('../models/event')
+const Event = require('../models/event');
 
 const router = new express.Router();
 
@@ -38,6 +39,8 @@ router.post('/', requireAdmin, async function (req, res, next) {
 
 
 /** GET /  =>
+ *  Gets events saved by user:
+ *  
  *   { events: [ { artist, organization, event_date, start_time, end_time,
  *                location, address, contact, contact_info, district, year },
  *            ...] }
@@ -48,6 +51,28 @@ router.post('/', requireAdmin, async function (req, res, next) {
 router.get('/', async function (req, res, next) {
   try {
     const events = await Event.getAll();
+
+    return res.json({ events });
+  } catch (err) {
+    return next(err);
+  }
+});
+
+
+/** GET / { event data } => { event data }
+ *  
+ *  Gets existing events' data: Read Only
+ * 
+ *   { events: [ { artist, organization, event_date, start_time, end_time,
+ *                location, address, contact, contact_info, district, year },
+ *            ...] }
+ *
+ * Authorization required: none
+ */
+
+router.get('/data', async function (req, res, next) {
+  try {
+    const events = JSON.parse(await readFile("./events_data.json", "utf8"));
 
     return res.json({ events });
   } catch (err) {
