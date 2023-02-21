@@ -36,7 +36,7 @@ const LoginForm = () => {
 
     const res = await ConcertsApi.login(formData);
 
-    // investivate why res has success property
+    // investigate why res has success property
     // add code to try...catch
     // move code to <App /> ?
     // make redirect work

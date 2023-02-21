@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ConcertsApi from '../../api/api';
 
+// this will be for user saved events
+// change code later
+
 const UserEvents = () => {
   const [events, setEvents] = useState([])
 
@@ -15,7 +18,7 @@ const UserEvents = () => {
     eventsList()
   }, [])
 
-  console.log(events)
+  // console.log(events)
 
   return (
     <div>
