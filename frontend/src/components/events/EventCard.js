@@ -13,7 +13,7 @@ import {
 const EventCard = () => {
   
   return (
-    <Center py={6}>
+    <Center>
       <Box
         maxW={'205px'}
         w={'full'}

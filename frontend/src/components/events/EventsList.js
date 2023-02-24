@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ConcertsApi from '../../api/api';
+import { Box, SimpleGrid } from '@chakra-ui/react';
+
 import EventCard from './EventCard';
 
 const EventsList = () => {
@@ -19,9 +21,25 @@ const EventsList = () => {
   // console.log(filterByYear)
   
   // console.log(events)
+
+  // make function to fill cards with each event from JSON file
+  // also filter out JSON file with only 2021/22 events
   return (
     <div>
-      <EventCard />
+      <SimpleGrid minChildWidth='170px' spacing='10px'>
+        <Box bg='' height='288px'>
+          <EventCard />
+        </Box>
+        <Box bg='' height='288px'>
+          <EventCard />
+        </Box>
+        <Box bg='' height='288px'>
+          <EventCard />
+        </Box>
+        <Box bg='' height='288px'>
+          <EventCard />
+        </Box>
+      </SimpleGrid>
     </div>
   )
 };
