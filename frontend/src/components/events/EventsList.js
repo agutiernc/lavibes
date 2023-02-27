@@ -9,7 +9,7 @@ const EventsList = () => {
 
   useEffect(() => {
     const eventsList = async () => {
-      let events = await ConcertsApi.getAllEvents();
+      let events = await ConcertsApi.getAllEvents()
 
       setEvents(events)
     }
@@ -17,28 +17,18 @@ const EventsList = () => {
     eventsList()
   }, []);
 
-  // const filterByYear = events.filter(x => x["Concert_Date"].startsWith("2021"))
-  // console.log(filterByYear)
-  
-  // console.log(events)
+  if (!events) return null;
 
-  // make function to fill cards with each event from JSON file
-  // also filter out JSON file with only 2021/22 events
+  const eventsBox = events.map(e => (
+    <Box bg='' height='315px' key={e.ObjectId}>
+      <EventCard event={e} />
+    </Box>
+  ))
+
   return (
     <div>
-      <SimpleGrid minChildWidth='170px' spacing='10px'>
-        <Box bg='' height='288px'>
-          <EventCard />
-        </Box>
-        <Box bg='' height='288px'>
-          <EventCard />
-        </Box>
-        <Box bg='' height='288px'>
-          <EventCard />
-        </Box>
-        <Box bg='' height='288px'>
-          <EventCard />
-        </Box>
+      <SimpleGrid minChildWidth='170px' spacing='25px'>
+        {eventsBox}
       </SimpleGrid>
     </div>
   )
@@ -47,3 +37,6 @@ const EventsList = () => {
 export default EventsList;
 
 // make a grid of 4 columns for cards
+// do carousel to show cards for the specified month
+//  -- make a function for that
+// Also, display cards for current month
