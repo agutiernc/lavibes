@@ -20,14 +20,14 @@ const EventsList = () => {
   if (!events) return null;
 
   const eventsBox = events.map(e => (
-    <Box bg='' height='315px' key={e.ObjectId}>
+    <Box bg='' height='325px' key={e.ObjectId}>
       <EventCard event={e} />
     </Box>
   ))
 
   return (
     <div>
-      <SimpleGrid minChildWidth='170px' spacing='25px'>
+      <SimpleGrid columns={{sm: 2, md: 3, lg: 4}} spacing='18px'>
         {eventsBox}
       </SimpleGrid>
     </div>

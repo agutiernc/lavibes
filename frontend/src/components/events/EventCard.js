@@ -59,25 +59,26 @@ const EventCard = ({ event }) => {
           <Image src={'/images/palms.jpg'} layout={'fill'} />
         </Box>
 
-        <Stack mt={14}>
+        <Stack mt={14} spacing={3}>
           <Heading
             color={useColorModeValue('gray.700', 'white')}
             fontSize={14}
             fontFamily={'body'}
             align={'center'}
+            pb={-1}
           >
             {event.Performing_Artist}
           </Heading>
           
-          <Text color={'gray.500'} fontSize={12} align={'center'} mb={10}>
+          <Text color={'gray.500'} fontSize={12} align={'center'}>
             {event.Concert_Location} <br /> in {city}
           </Text>
         </Stack>
 
-        <Stack mt={1} direction={'row'} spacing={4} pl={2}>          
-          <Stack direction={'column'} spacing={0}>
-            <Text fontWeight={600} fontSize={'md'} mt={3}>{eventDate}</Text>
-            <Text color={'gray.500'} fontSize={11}>
+        <Stack mt={0} direction={'row'} spacing={2} pl={2} pt={3}>          
+          <Stack direction={'column'} spacing={1}>
+            <Text fontWeight={600} fontSize={'md'}>{eventDate}</Text>
+            <Text color={'gray.500'} fontSize={12}>
              {getTime(event.Start_Time)} - {getTime(event.End_Time)}
             </Text>
           </Stack>
