@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
   Center,
@@ -10,10 +10,15 @@ import {
 } from '@chakra-ui/react';
 
 
-const EventCard = ({ event }) => {
+const EventCard = ({ event, mapEvents }) => {
   const city = event.Location.substring(event.Location.indexOf("\n") + 1, event.Location.indexOf(", CA"))
   const eventDate = new Date(event.Concert_Date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   
+  // add event object to map
+  useEffect(() => {
+    mapEvents(eventDate.slice(0, 3), event)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
   // get the start and end times for an event
   const getTime = (str) => {
     const dateObj = new Date(str);

@@ -6,10 +6,12 @@ import EventCard from './EventCard';
 
 const EventsList = () => {
   const [events, setEvents] = useState([]);
+  const [eventMap, setEventMap] = useState(new Map())
 
+  // get all events data
   useEffect(() => {
     const eventsList = async () => {
-      let events = await ConcertsApi.getAllEvents()
+      let events = await ConcertsApi.getAllEvents();
 
       setEvents(events)
     }
@@ -19,11 +21,32 @@ const EventsList = () => {
 
   if (!events) return null;
 
+  // Map events by months
+  const mapEvents = (month, eventObj) => {
+    const eventSet = eventMap.get(month)
+
+    if (eventMap.has(month) && !eventSet.has(eventObj)) {
+      eventSet.add(eventObj)
+    } else {
+      const newSet = new Set()
+
+      newSet.add(eventObj)
+      eventMap.set(month, newSet)
+    }
+
+    setEventMap(eventMap)
+  }
+
+  if (!eventMap) return null;
+
   const eventsBox = events.map(e => (
     <Box bg='' height='325px' key={e.ObjectId}>
-      <EventCard event={e} />
+      <EventCard event={e} mapEvents={mapEvents} />
     </Box>
   ))
+
+  // console.log('# of events: ', events.length)
+  // console.log('MAP: ', eventMap)
 
   return (
     <div>
