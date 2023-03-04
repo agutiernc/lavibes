@@ -1,30 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ConcertsApi from '../../api/api';
-// import { register } from 'swiper/element/bundle';
-import { Box, SimpleGrid } from '@chakra-ui/react';
-
+import { register } from 'swiper/element/bundle';
+import { Box, SimpleGrid, Heading, Center } from '@chakra-ui/react';
+import './EventsList.css';
 import EventCard from './EventCard';
 
-// register(); // for swiper carousel
+register(); // for swiper carousel
 
 const EventsList = () => {
-  // const swiperElRef = useRef(null);
+  const swiperElRef = useRef(null);
   const [events, setEvents] = useState([]);
   const [eventsMap, setEventsMap] = useState(new Map());
 
   // swiper carousel
-  // useEffect(() => {
-  //   // listen for Swiper events using addEventListener
-  //   swiperElRef.current.addEventListener('progress', (e) => {
-  //     const [swiper, progress] = e.detail;
-  //     // console.log(swiper)
-  //     // console.log(progress);
-  //   });
+  useEffect(() => {
+    // listen for Swiper events using addEventListener
+    swiperElRef.current.addEventListener('progress', (e) => {
+      const [swiper, progress] = e.detail;
+      // console.log(swiper)
+      // console.log(progress);
+    });
 
-  //   swiperElRef.current.addEventListener('slidechange', (e) => {
-  //     console.log('slide changed');
-  //   });
-  // }, []);
+    swiperElRef.current.addEventListener('slidechange', (e) => {
+      console.log('slide changed');
+    });
+  }, []);
 
   // get all events data from backend
   useEffect(() => {
@@ -89,7 +89,7 @@ const EventsList = () => {
     });
   
     return sortedEvents.map(e => (
-      <Box height='325px' key={e.ObjectId}>
+      <Box height='320px' key={e.ObjectId}>
         <EventCard event={e} />
       </Box>
     ));
@@ -99,29 +99,45 @@ const EventsList = () => {
   // console.log('# of events: ', events.length)
 
   return (
-    <div>
-      <SimpleGrid columns={{sm: 2, md: 3, lg: 4}} spacing='15px'>
-        {eventsBox('Jun')}
-      </SimpleGrid>
-    </div>
+    <swiper-container
+      ref={swiperElRef}
+      slides-per-view="1"
+      navigation="true"
+      pagination="true"
+      rewind="true"
+    >
+      <swiper-slide>
+        <Center my={8}>
+          <Heading size={'xl'}>June</Heading>
+        </Center>
+        <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='15px'>
+          {eventsBox('Jun')}
+        </SimpleGrid>
+      </swiper-slide>
 
-    //   <swiper-container
-    //   ref={swiperElRef}
-    //   slides-per-view="1"
-    //   navigation="true"
-    //   pagination="true"
-    // >
-    //   <swiper-slide><Center>Slide 1</Center></swiper-slide>
-    //   <swiper-slide><Center>Slide</Center></swiper-slide>
-    //   <swiper-slide><Center>Slide 3</Center></swiper-slide>
-      
-    // </swiper-container>
+      <swiper-slide>
+        <Center my={8}>
+          <Heading size={'xl'}>July</Heading>
+        </Center>
+        <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='15px'>
+          {eventsBox('Jul')}
+        </SimpleGrid>
+      </swiper-slide>
+
+      <swiper-slide>
+        <Center my={8}>
+          <Heading size={'xl'}>August</Heading>
+        </Center>
+        <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='15px'>
+          {eventsBox('Aug')}
+        </SimpleGrid>
+      </swiper-slide>
+    </swiper-container>
   )
 };
 
 export default EventsList;
 
-// make a grid of 4 columns for cards
-// do carousel to show cards for the specified month
-//  -- make a function for that
-// Also, display cards for current month
+// adjust height for each slide
+// move pagination under Headings
+// move nav arrows to sides of Headings
