@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { NavLink, useNavigate, Navigate } from 'react-router-dom';
-import ConcertsApi from "../../api/api";
-
+import UserContext from './UserContext';
 import {
   Flex,
   Box,
@@ -11,16 +10,24 @@ import {
   Button,
   Heading,
   useColorModeValue,
+  Text
 } from '@chakra-ui/react';
 
-const LoginForm = () => {
+const LoginForm = ({ login }) => {
   const navigate = useNavigate();
+  const bgColor = useColorModeValue('white', 'gray.700')
+  const { currentUser } = useContext(UserContext);
   const initialValue = {
     username: '',
     password: ''
   };
 
   const [formData, setFormData] = useState(initialValue);
+
+  // redirect currently logged user to main page
+  if (currentUser) {
+    return <Navigate to='/' />
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,17 +41,14 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await ConcertsApi.login(formData);
+    const res = await login(formData);
 
-    // investigate why res has success property
-    // add code to try...catch
-    // move code to <App /> ?
-    // make redirect work
-    console.log(res)
+    // redirect successfully logged in user to main page
     if (res.success) {
       navigate('/');
     } else {
       setFormData(initialValue)
+
       return;
     }
   }
@@ -58,7 +62,7 @@ const LoginForm = () => {
 
         <Box
           rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
+          bg={bgColor}
           boxShadow={'lg'}
           p={8}
         >
@@ -101,6 +105,13 @@ const LoginForm = () => {
               </Stack>
             </form>
           </Stack>
+
+          <Box mt={3} fontSize={'14px'} textAlign='center'>
+            Don't have an account? 
+            <NavLink to="/signup">
+              <Text color='#048FC7' fontWeight={'bold'}>Sign up here!</Text>
+            </NavLink>
+          </Box>
         </Box>
       </Stack>
     </Flex>

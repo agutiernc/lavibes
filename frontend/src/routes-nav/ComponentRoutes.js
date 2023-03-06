@@ -7,14 +7,14 @@ import LoginForm from '../components/user/LoginForm';
 import EventsList from '../components/events/EventsList';
 // import UserEvents from '../components/user/UserEvents';
 
-const ComponentRoutes = () => {
+const ComponentRoutes = ({ login }) => {
   return (
     <>
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/events' element={<EventsList />} />
         <Route path='/signup' element={<SignupForm />} />
-        <Route path='/login' element={<LoginForm />} />
+        <Route path='/login' element={<LoginForm login={login} />} />
         <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
     </>
