@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import UserContext from "../components/user/UserContext";
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { FaUser } from 'react-icons/fa';
 import {
   Box,
   Flex,
   Avatar,
-  // Link,
   Button,
   Menu,
   MenuButton,
@@ -16,61 +17,114 @@ import {
   Stack,
   useColorMode,
   Center,
+  Icon,
+  Link,
+  Text
 } from '@chakra-ui/react';
 
-const NavBar = () => {
+const NavBar = ({ logout }) => {
+  const { currentUser } = useContext(UserContext);
   const { colorMode, toggleColorMode } = useColorMode();
   // const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // display when a user is logged in
+  const loggedIn = () => {
+    return (
+      <Box>
+        <Menu>
+          <MenuButton
+            as={Button}
+            rounded={'full'}
+            variant={'link'}
+            cursor={'pointer'}
+            minW={0}
+          >
+            <Avatar
+              size={'sm'}
+              icon={<Icon as={FaUser} />}
+            />
+          </MenuButton>
+
+          <MenuList alignItems={'center'} minWidth='175px'>
+            <br />
+
+            <Center>
+              <Avatar
+                size={'md'}
+                icon={<Icon as={FaUser} />}
+              />
+            </Center>
+            <br />
+
+            <Center>
+              <Text fontWeight={'bold'} fontSize={20}>
+                {currentUser.username}
+              </Text>
+            </Center>
+            <br />
+
+            <MenuDivider />
+
+            <MenuItem>
+              <Link
+                href="/settings"
+                _hover={{
+                  textDecoration: 'none',
+                }}
+              >
+                Account Settings
+              </Link>
+            </MenuItem>
+
+            <MenuItem>
+              <Link
+                href="/"
+                onClick={logout}
+                _hover={{
+                  textDecoration: 'none',
+                }}
+              >
+                Logout
+              </Link>
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      </Box>
+    )
+  }
+
+  // display when a user is logged out
+  const loggedOut = () => {
+    return (
+      <Box>
+        <Link
+          _hover={{
+            textDecoration: 'none',
+          }}
+          href="/login"
+        >
+        <Button colorScheme="whiteAlpha" variant="solid">
+            Sign in
+          </Button>
+        </Link>
+      </Box>
+    )
+  }
+
   return (
     <>
-      <Box bg={useColorModeValue('#27048c', 'red.900')} px={4}>
+      <Box bg={useColorModeValue('#27048c', '#0b1029')} px={9}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Box color="#FFF">LA Vibes</Box>
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
 
-              <Button onClick={toggleColorMode}>
+              <Button onClick={toggleColorMode} rounded={'full'} colorScheme="teal">
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
 
-              <Box>
-                <Menu>
-                  <MenuButton
-                    as={Button}
-                    rounded={'full'}
-                    variant={'link'}
-                    cursor={'pointer'}
-                    minW={0}>
-                      <Avatar
-                        size={'sm'}
-                        src={'https://avatars.dicebear.com/api/male/username.svg'}
-                      />
-                  </MenuButton>
-
-                  <MenuList alignItems={'center'}>
-                    <br />
-
-                    <Center>
-                      <Avatar
-                        size={'2xl'}
-                        src={'https://avatars.dicebear.com/api/male/username.svg'}
-                      />
-                    </Center>
-                    <br />
-
-                    <Center>
-                      <p>Username</p>
-                    </Center>
-                    <br />
-
-                    <MenuDivider />
-                    
-                    <MenuItem>Account Settings</MenuItem>
-                    <MenuItem>Logout</MenuItem>
-                  </MenuList>
-                </Menu>
-              </Box>
+              {currentUser ? loggedIn() : loggedOut()}
             </Stack>
           </Flex>
         </Flex>
@@ -83,9 +137,5 @@ export default NavBar;
 
 /**
  * Needs:
- *  - login link
- *  - signup link
- *  - center links?
  *  - better logo
- *  - different color for dark mode
  */

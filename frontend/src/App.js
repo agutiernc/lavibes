@@ -54,10 +54,10 @@ const App = () => {
     }
   }
 
-  // const logout = () => {
-  //   setToken(null)
-  //   setCurrentUser(null)
-  // }
+  const logout = () => {
+    setToken(null)
+    setCurrentUser(null)
+  }
 
   if (!loading) {
     return <h1>Loading...</h1>
@@ -66,7 +66,7 @@ const App = () => {
   return (
     <Router>
       <UserContext.Provider value={{ currentUser, setCurrentUser }}>
-        <NavBar />
+        <NavBar logout={logout} />
 
         <Container maxW={'90%'} mt={5}>
           <ComponentRoutes login={login} />
