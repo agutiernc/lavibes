@@ -68,7 +68,7 @@ const App = () => {
       <UserContext.Provider value={{ currentUser, setCurrentUser }}>
         <NavBar logout={logout} />
 
-        <Container maxW={'90%'} mt={5}>
+        <Container maxW={'90%'} mt={0}>
           <ComponentRoutes login={login} />
         </Container>
       </UserContext.Provider>
