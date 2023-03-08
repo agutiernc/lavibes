@@ -61,20 +61,36 @@ router.get('/', async function (req, res, next) {
 
 /** GET / { event data } => { event data }
  *  
- *  Gets existing events' data: Read Only
+ * Gets existing events' data: Read Only
  * 
  *   { events: [ { artist, organization, event_date, start_time, end_time,
  *                location, address, contact, contact_info, district, year },
  *            ...] }
  *
+ *  Can also get an event by its ObjectId
+ * 
  * Authorization required: none
  */
 
-router.get('/data', async function (req, res, next) {
+router.get('/data/:id?', async function (req, res, next) {
   try {
     const events = JSON.parse(await readFile("./events_data.json", "utf8"));
+    const eventId = req.params.id;
 
-    return res.json({ events });
+    // If there's no event ID, return all events
+    if (!eventId) {
+      return res.json({ events });
+    }
+
+    // If an event ID is provided
+    const event = events.find(event => event["ObjectId"] === +eventId);
+
+    // return error if event ID is not found
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    return res.json({ event });
   } catch (err) {
     return next(err);
   }
