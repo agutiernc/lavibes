@@ -58,12 +58,23 @@ class ConcertsApi {
     return res.user;
   }
 
-  /** Get all events - not related to saved user events */
+  /** Get all events - not related to saved user events
+   * 
+   *  Optional filter: Gets an event by id
+   */
 
-  static async getAllEvents() {
-    const res = await this.request('events/data');
+  static async getAllEvents(id) {
+    let res;
+    
+    if (id) {
+      res = await this.request(`events/data/${id}`);
 
-    return res.events;
+      return res.event;
+    } else {
+      res = await this.request('events/data');
+
+      return res.events;
+    }
   }
 
   /** Get all events saved by user */

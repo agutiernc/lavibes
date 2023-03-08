@@ -6,6 +6,7 @@ import SignupForm from '../components/user/SignupForm';
 import LoginForm from '../components/user/LoginForm';
 import ProfileForm from '../components/user/ProfileForm';
 import EventsList from '../components/events/EventsList';
+import EventsDetails from '../components/events/EventsDetails';
 // import UserEvents from '../components/user/UserEvents';
 
 const ComponentRoutes = ({ login }) => {
@@ -14,6 +15,7 @@ const ComponentRoutes = ({ login }) => {
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/events' element={<EventsList />} />
+        <Route path='/events/:id' element={<EventsDetails />} />
         <Route path='/settings' element={<ProfileForm />} />
         <Route path='/signup' element={<SignupForm />} />
         <Route path='/login' element={<LoginForm login={login} />} />

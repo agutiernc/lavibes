@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import ConcertsApi from '../../api/api';
 import UserContext from './UserContext';
 import { FaUser } from 'react-icons/fa';
@@ -155,15 +155,18 @@ const ProfileForm = () => {
           </FormControl>
 
           <Stack spacing={6} direction={['column', 'row']}>
-            <Button
-              bg={'red.400'}
-              color={'white'}
-              w="full"
-              _hover={{
-                bg: 'red.500',
-              }}>
-              Cancel
-            </Button>
+            <Link to='/'>
+              <Button
+                bg={'red.400'}
+                color={'white'}
+                w="full"
+                _hover={{
+                  bg: 'red.500',
+                }}>
+                Cancel
+              </Button>
+            </Link>
+
             <Button
               bg={'blue.400'}
               color={'white'}
