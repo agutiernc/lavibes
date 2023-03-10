@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { eventDate, getTime, getAddress } from '../../utils/utils';
 import ConcertsApi from '../../api/api';
+import { GrMapLocation, GrCalendar, GrPhone, GrOrganization } from 'react-icons/gr'
 import {
   Box,
   VStack,
@@ -11,15 +13,23 @@ import {
   Grid,
   GridItem,
   Container,
+  Icon,
+  Image
 } from '@chakra-ui/react';
 
-const Feature = ({ heading, text }) => {
+
+const Feature = ({ heading, icon, text1, text2 }) => {
   return (
-    <GridItem>
+    <GridItem textAlign={'center'}>
       <chakra.h3 fontSize="xl" fontWeight="600">
-        {heading}
+        {icon} {heading}
       </chakra.h3>
-      <chakra.p>{text}</chakra.p>
+
+      <VStack fontSize={'14px'}>
+        <Box>{text1}</Box>
+        <Box>{text2}</Box>
+      </VStack>
+
     </GridItem>
   );
 };
@@ -27,7 +37,7 @@ const Feature = ({ heading, text }) => {
 const EventsDetails = () => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
-
+ 
   // get event info
   useEffect(() => {
     const eventInfo = async () => {
@@ -41,8 +51,6 @@ const EventsDetails = () => {
 
   if (!event) return null;
 
-  console.log(event)
-
   return (
     <Box as={Container} maxW="7xl" mt={20} p={4}>
       <Grid
@@ -54,8 +62,8 @@ const EventsDetails = () => {
         gap={4}>
         <GridItem colSpan={1}>
           <VStack alignItems="flex-start" spacing="20px">
-            <chakra.h2 fontSize="3xl" fontWeight="700">
-            {event.Performing_Artist}
+            <chakra.h2 fontSize="3xl" fontWeight="700" mt={'20px'}>
+              {event.Performing_Artist}
             </chakra.h2>
             <Button colorScheme="green" size="md">
               Call To Action
@@ -65,9 +73,7 @@ const EventsDetails = () => {
         <GridItem>
           <Flex>
             <chakra.p>
-              Provide your customers a story they would enjoy keeping in mind
-              the objectives of your website. Pay special attention to the tone
-              of voice.
+              <Image src={'/images/palms.jpg'} boxSize={'90%'} borderRadius={'10px'} boxShadow={'2xl'}/>
             </chakra.p>
           </Flex>
         </GridItem>
@@ -81,20 +87,28 @@ const EventsDetails = () => {
         }}
         gap={{ base: '8', sm: '12', md: '16' }}>
         <Feature
-          heading={'First Feature'}
-          text={'Short text describing one of you features/service'}
+          heading={'Date-Time'}
+          icon={<Icon as={GrCalendar} />}
+          text1={eventDate(event.Concert_Date)}
+          text2={`${getTime(event.Start_Time)} - ${getTime(event.End_Time)}`}
         />
         <Feature
-          heading={'Second Feature'}
-          text={'Short text describing one of you features/service'}
+          heading={'Location'}
+          icon={<Icon as={GrMapLocation} />}
+          text1={event.Concert_Location}
+          text2={getAddress(event.Location)}
         />
         <Feature
-          heading={'Third Feature'}
-          text={'Short text describing one of you features/service'}
+          heading={'Contact'}
+          icon={<Icon as={GrPhone} />}
+          text1={event.Contact}
+          text2={event.Contact_Info}
         />
         <Feature
-          heading={'Fourth Feature'}
-          text={'Short text describing one of you features/service'}
+          heading={'Organization'}
+          icon={<Icon as={GrOrganization} />}
+          text1={`Dept. of ${event.Presenting_Organization.slice(14)}`}
+          text2={`in District ${event.Supervisor_District}`}
         />
       </Grid>
     </Box>
@@ -102,3 +116,11 @@ const EventsDetails = () => {
 }
 
 export default EventsDetails;
+
+/**
+ * Needs:
+ * - Button to save event for user
+ * - Image that Event Card originally has
+ * - Links to maps?
+ * - font colors
+ */
