@@ -26,7 +26,7 @@ export const getTime = (str) => {
 }
 
 // shorten address
-export const getAddress =(addr) => {
+export const getAddress = (addr) => {
   let lines = addr.split('\n');
   let street = lines[0];
   let cityStateZip = lines[1];

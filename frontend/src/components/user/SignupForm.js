@@ -13,20 +13,20 @@ import {
 
 const SignupForm = () => {
   const navigate = useNavigate();
-  const { currentUser } = useContext(UserContext)
+  const { currentUser } = useContext(UserContext);
   const initialState = {
     username: '',
     password: '',
     email: '',
     firstName: '',
     lastName: '',
-  }
+  };
 
   const [formData, setFormData] = useState(initialState);
 
   // redirect currently logged user to main page
   if (currentUser) {
-    return <Navigate to='/' />
+    return <Navigate to='/' />;
   }
 
   const handleChange = (e) => {
