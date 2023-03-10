@@ -26,14 +26,22 @@ export const getTime = (str) => {
 }
 
 // shorten address
-export const getAddress =(address) => {
-  let lines = address.split('\n');
+export const getAddress =(addr) => {
+  let lines = addr.split('\n');
   let street = lines[0];
   let cityStateZip = lines[1];
   let endIndex = cityStateZip.lastIndexOf(' ');
   let cityState = cityStateZip.substring(0, endIndex);
   let zip = cityStateZip.substring(endIndex + 1);
-  
+
   return `${street} ${cityState} ${zip}`;
 }
 
+
+// return google maps link for address
+export const addressToMap = (str) => {
+  const MAP_URL = 'https://www.google.com/maps/place'
+  const addr = str.split(' ').join('+');
+
+  return `${MAP_URL}/${addr}`;
+}

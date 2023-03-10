@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { eventDate, getTime, getAddress } from '../../utils/utils';
+import { eventDate, getTime, getAddress, addressToMap } from '../../utils/utils';
 import ConcertsApi from '../../api/api';
 import { GrMapLocation, GrCalendar, GrPhone, GrOrganization } from 'react-icons/gr';
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 import {
   Box,
   VStack,
@@ -14,7 +15,8 @@ import {
   GridItem,
   Container,
   Icon,
-  Image
+  Image,
+  Link
 } from '@chakra-ui/react';
 
 
@@ -51,6 +53,9 @@ const EventsDetails = () => {
 
   if (!event) return null;
 
+  const address = getAddress(event.Location);
+  const addressMap = addressToMap(address)
+  
   return (
     <Box as={Container} maxW="7xl" mt={20} p={4}>
       <Grid
@@ -98,7 +103,11 @@ const EventsDetails = () => {
           heading={'Location'}
           icon={<Icon as={GrMapLocation} />}
           text1={event.Concert_Location}
-          text2={getAddress(event.Location)}
+          text2={
+            <Link href={addressMap} isExternal>
+              {address} <ExternalLinkIcon mx='2px' />
+            </Link>
+          }
         />
         <Feature
           heading={'Contact'}
@@ -123,6 +132,5 @@ export default EventsDetails;
  * Needs:
  * - Button to save event for user
  * - Image that Event Card originally has
- * - Links to maps?
  * - font colors
  */
