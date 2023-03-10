@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { eventDate, getTime, getAddress } from '../../utils/utils';
 import ConcertsApi from '../../api/api';
-import { GrMapLocation, GrCalendar, GrPhone, GrOrganization } from 'react-icons/gr'
+import { GrMapLocation, GrCalendar, GrPhone, GrOrganization } from 'react-icons/gr';
 import {
   Box,
   VStack,
@@ -59,7 +59,8 @@ const EventsDetails = () => {
           sm: 'repeat(2, 1fr)',
           md: 'repeat(2, 1fr)',
         }}
-        gap={4}>
+        gap={4}
+      >
         <GridItem colSpan={1}>
           <VStack alignItems="flex-start" spacing="20px">
             <chakra.h2 fontSize="3xl" fontWeight="700" mt={'20px'}>
@@ -85,7 +86,8 @@ const EventsDetails = () => {
           sm: 'repeat(2, 1fr)',
           md: 'repeat(4, 1fr)',
         }}
-        gap={{ base: '8', sm: '12', md: '16' }}>
+        gap={{ base: '8', sm: '12', md: '16' }}
+      >
         <Feature
           heading={'Date-Time'}
           icon={<Icon as={GrCalendar} />}
