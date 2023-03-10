@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
+import UserContext from "./UserContext";
 import ConcertsApi from "../../api/api";
 import {
   Heading,
@@ -12,6 +13,7 @@ import {
 
 const SignupForm = () => {
   const navigate = useNavigate();
+  const { currentUser } = useContext(UserContext)
   const initialState = {
     username: '',
     password: '',
@@ -21,6 +23,11 @@ const SignupForm = () => {
   }
 
   const [formData, setFormData] = useState(initialState);
+
+  // redirect currently logged user to main page
+  if (currentUser) {
+    return <Navigate to='/' />
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
