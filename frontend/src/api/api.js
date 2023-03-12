@@ -77,12 +77,11 @@ class ConcertsApi {
     }
   }
 
-  /** Get all events saved by user */
 
-  static async getUserEvents() {
-    const res = await this.request('events');
+  /** allow user to save an event */
 
-    return res.events;
+  static async saveEvent () {
+    
   }
 }
 

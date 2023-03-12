@@ -1,30 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import ConcertsApi from '../../api/api';
-
-// this will be for user saved events
-// change code later
+import React, { useState, useContext } from 'react';
+import UserContext from './UserContext';
 
 const UserEvents = () => {
-  const [events, setEvents] = useState([])
+  const { currentUser } = useContext(UserContext);
+  const [savedEvents, setSavedEvents] = useState(currentUser.events);
+  console.log(savedEvents)
 
-  // get all events
-  useEffect(() => {
-    const eventsList = async () => {
-      let events = await ConcertsApi.getAllEvents()
-  
-      setEvents(events)
-    }
+  // const handleDeleteBtn = (eventId) => {
+  //   // remove the event from savedEvents array
+  //   const newSavedEvents = savedEvents.filter(event => event.id !== eventId);
 
-    eventsList()
-  }, [])
-
-  // console.log(events)
+  //   // update state with the new savedEvents array
+  //   setSavedEvents(newSavedEvents);
+  // };
 
   return (
     <div>
       <h1>Saved Events</h1>
+      
+      {
+        savedEvents.map(e => (
+          <div key={e.id}>
+            <h1>{e.artist}</h1>
+          </div>
+        ))
+      }
     </div>
-  )
-}
+  );
+};
+
 
 export default UserEvents;

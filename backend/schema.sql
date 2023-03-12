@@ -12,21 +12,24 @@ CREATE TABLE events (
   id SERIAL PRIMARY KEY,
   artist VARCHAR(30),
   organization VARCHAR(80),
-  event_date BIGINT NOT NULL,
-  start_time BIGINT NOT NULL,
-  end_time BIGINT,
+  event_date TEXT,
+  start_time TEXT,
+  end_time TEXT,
   location TEXT NOT NULL,
   address TEXT NOT NULL,
   contact TEXT,
   contact_info TEXT,
   district TEXT,
-  year INTEGER NOT NULL
+  year INTEGER NOT NULL,
+  objectID TEXT
 );
 
 CREATE TABLE user_events (
   username VARCHAR(25)
-    REFERENCES users ON DELETE CASCADE,
+    REFERENCES users(username) ON DELETE CASCADE,
   event_id INTEGER
-    REFERENCES events ON DELETE CASCADE,
+    REFERENCES events(id) ON DELETE CASCADE,
+  event_object_id TEXT
+     REFERENCES events(objectID) ON DELETE CASCADE,
   PRIMARY KEY (username, event_id)
 );
