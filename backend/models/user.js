@@ -143,14 +143,16 @@ class User {
     const user = userResult.rows[0];
 
     if (!user) throw new NotFoundError(`No user: ${username}`);
-
-    // ** TEST this code with events_user table
-    const userEventsRes = await db.query(
-            `SELECT e.event_id
-             FROM user_events AS e
-             WHERE e.username = $1`, [username]);
     
-    user.events = userEventsRes.rows.map(e => e.event_id);
+    const userEventsRes = await db.query(
+        `SELECT e.*
+          FROM user_events AS ue
+          JOIN events AS e ON ue.event_id = e.id
+          WHERE ue.username = $1`,
+          [username]
+      );
+  
+    user.events = userEventsRes.rows;
 
     return user;
   }
