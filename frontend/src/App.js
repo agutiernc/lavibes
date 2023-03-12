@@ -43,6 +43,19 @@ const App = () => {
     getCurrentUser();
   }, [token])
 
+  
+  const signup = async (data) => {
+    try {
+      let token = await ConcertsApi.signup(data)
+
+      setToken(token)
+
+      return { success: true };
+    } catch (err) {
+      return { success: false, err };
+    }
+  }
+
   const login = async (data) => {
     try {
       let token = await ConcertsApi.login(data);
@@ -71,7 +84,7 @@ const App = () => {
         <NavBar logout={logout} />
 
         <Container maxW={'90%'} mt={0}>
-          <ComponentRoutes login={login} />
+          <ComponentRoutes signup={signup} login={login} />
         </Container>
       </UserContext.Provider>
     </Router>

@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import UserContext from "./UserContext";
-import ConcertsApi from "../../api/api";
 import {
   Heading,
   Flex,
@@ -11,7 +10,7 @@ import {
   Button
 } from "@chakra-ui/react";
 
-const SignupForm = () => {
+const SignupForm = ({ signup }) => {
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
   const initialState = {
@@ -42,7 +41,7 @@ const SignupForm = () => {
     e.preventDefault();
 
     try {
-      const res = await ConcertsApi.signup(formData);
+      const res = await signup(formData);
      
       if (res) {
         navigate('/'); // redirect to main if success

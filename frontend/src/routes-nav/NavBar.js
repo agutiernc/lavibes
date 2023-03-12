@@ -15,6 +15,7 @@ import {
   // useDisclosure,
   useColorModeValue,
   Stack,
+  HStack,
   useColorMode,
   Center,
   Icon,
@@ -96,18 +97,29 @@ const NavBar = ({ logout }) => {
   // display when a user is logged out
   const loggedOut = () => {
     return (
-      <Box>
+      <HStack spacing={3}>
         <Link
           _hover={{
             textDecoration: 'none',
           }}
           href="/login"
         >
-        <Button colorScheme="whiteAlpha" variant="solid">
+          <Button colorScheme="whiteAlpha" variant="solid">
             Sign in
           </Button>
         </Link>
-      </Box>
+
+        <Link
+          _hover={{
+            textDecoration: 'none',
+          }}
+          href="/signup"
+        >
+          <Button colorScheme="whiteAlpha" variant="solid">
+            Sign up
+          </Button>
+        </Link>
+      </HStack>
     )
   }
 
