@@ -4,13 +4,13 @@ import { Alert, AlertIcon } from '@chakra-ui/react';
 const Notify = ({ message }) => {
   if (message.type === 'success') {
     return (
-      <Alert status='success'>
+      <Alert status='success' rounded={'lg'}>
         <AlertIcon /> {message.msg}
       </Alert>
     );
   } else if (message.type === 'error') {
     return (
-      <Alert status='error'>
+      <Alert status='error' rounded={'lg'}>
         <AlertIcon /> {message.msg}
       </Alert>
     );

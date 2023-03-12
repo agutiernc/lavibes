@@ -13,10 +13,12 @@ import {
   Text
 } from '@chakra-ui/react';
 
+import Notify from '../common/Notify';
+
 const LoginForm = ({ login }) => {
   const navigate = useNavigate();
   const bgColor = useColorModeValue('white', 'gray.700')
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, message, setMessage } = useContext(UserContext);
   const initialValue = {
     username: '',
     password: ''
@@ -28,7 +30,7 @@ const LoginForm = ({ login }) => {
   if (currentUser) {
     return <Navigate to='/' />
   }
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
    
@@ -42,11 +44,12 @@ const LoginForm = ({ login }) => {
     e.preventDefault();
 
     const res = await login(formData);
-
+    
     // redirect successfully logged in user to main page
     if (res.success) {
       navigate('/');
     } else {
+      setMessage({ msg: 'Incorrect Username or Password', type: 'error' })
       setFormData(initialValue)
 
       return;
@@ -54,10 +57,12 @@ const LoginForm = ({ login }) => {
   }
 
   return (
-    <Flex align={'center'} justify={'center'}>
+    <Flex align={'center'} justify={'center'} mt={3}>
+
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} color='#048FC7'>Sign In</Heading>
+          <Notify message={message} />
         </Stack>
 
         <Box

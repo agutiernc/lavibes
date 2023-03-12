@@ -15,6 +15,7 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState({ msg: '', type: ''})
 
   // load user info
   useEffect(() => {
@@ -45,7 +46,7 @@ const App = () => {
   const login = async (data) => {
     try {
       let token = await ConcertsApi.login(data);
-
+      
       setToken(token);
 
       return { success: true }
@@ -57,6 +58,7 @@ const App = () => {
   const logout = () => {
     setToken(null)
     setCurrentUser(null)
+    // localStorage.removeItem("concerts-token");
   }
 
   if (!loading) {
@@ -65,7 +67,7 @@ const App = () => {
 
   return (
     <Router>
-      <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+      <UserContext.Provider value={{ currentUser, setCurrentUser, message, setMessage }}>
         <NavBar logout={logout} />
 
         <Container maxW={'90%'} mt={0}>

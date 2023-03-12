@@ -19,19 +19,19 @@ import {
 
 const ProfileForm = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
-  const initialValue = {
+  const initialValue = currentUser ? {
     password: '',
     email: currentUser.email,
     username: currentUser.username,
     firstName: currentUser.firstName,
     lastName: currentUser.lastName
-  };
+  } : null;
 
   const [formData, setFormData] = useState(initialValue);
 
   // redirect user if not current user
   if (!currentUser) {
-    return <Navigate to='/login' />;
+    return <Navigate to='/' />;
   }
 
   const handleChange = (e) => {
