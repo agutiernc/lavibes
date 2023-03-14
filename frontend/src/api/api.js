@@ -34,6 +34,7 @@ class ConcertsApi {
     return res.token;
   }
 
+  
   /** login */
 
   static async login(data) {
@@ -41,6 +42,7 @@ class ConcertsApi {
 
     return res.token;
   }
+
 
   /** Get current user */
 
@@ -50,6 +52,7 @@ class ConcertsApi {
     return res.user;
   }
 
+
   /** save user profile */
 
   static async saveProfile(username, data) {
@@ -57,6 +60,7 @@ class ConcertsApi {
 
     return res.user;
   }
+
 
   /** Get all events - not related to saved user events
    * 
@@ -80,8 +84,19 @@ class ConcertsApi {
 
   /** allow user to save an event */
 
-  static async saveEvent () {
-    
+  static async saveEvent (username, id, data) {
+    const res = await this.request(`users/${username}/events/${id}`, data, 'post');
+    console.log(res)
+    return res;
+  }
+
+
+  /** allow user to delete a saved event */
+
+  static async deleteSavedEvent (username, id) {
+    const res = await this.request(`users/${username}/events/${id}`, 'delete');
+    console.log(res)
+    return res;
   }
 }
 
