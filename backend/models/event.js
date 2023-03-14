@@ -1,7 +1,7 @@
 "use strict";
 
 const db = require("../db");
-const { NotFoundError} = require("../expressError");
+const { NotFoundError, BadRequestError} = require("../expressError");
 const { sqlForPartialUpdate } = require("../helpers/sql");
 
 /** Related functions for events. */
@@ -18,10 +18,13 @@ class Event {
    * { id, artist, organization, event_date, start_time, end_time, location,
    *    adress, contact, contact_info, district, year
    * }
+   * 
+   * If event already saved, throw error.
    *
    * */
 
   static async create({
+    id,
     artist,
     organization,
     event_date, 
@@ -34,21 +37,30 @@ class Event {
     district,
     year
   }) {
-    const result = await db.query(
-      `INSERT INTO events (
-        artist, organization, event_date, start_time, end_time,
-        location, address, contact, contact_info, district, year)
-       VALUES  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-       RETURNING artist, organization, event_date, start_time, end_time,
-        location, address, contact, contact_info, district, year`,
-       [artist, organization, event_date, start_time, end_time, location,
-        address, contact, contact_info, district, year]
-    );
+    try {
+      const result = await db.query(
+        `INSERT INTO events (
+          artist, organization, event_date, start_time, end_time,
+          location, address, contact, contact_info, district, year, id)
+         VALUES  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+         RETURNING artist, organization, event_date, start_time, end_time,
+          location, address, contact, contact_info, district, year`,
+         [artist, organization, event_date, start_time, end_time, location,
+          address, contact, contact_info, district, year, id]
+      );
+  
+      const event = result.rows[0];
+  
+      return event;
+    } catch (err) {
+      if (err.code === "23505") {
+        throw new BadRequestError(`Event with id ${id} already exists`);
+      }
 
-    const event = result.rows[0];
-
-    return event;
+      throw err;
+    }
   }
+
 
   /** Get all events
    * 

@@ -146,8 +146,9 @@ router.delete('/:username', ensureAdminOrCorrectUser, async function (req, res, 
 router.post('/:username/events/:id', ensureAdminOrCorrectUser, async (req, res, next) => {
   try {
     const eventId = +req.params.id;
+    const data = req.body;
 
-    await User.saveEvent(req.params.username, eventId);
+    await User.saveEvent(req.params.username, eventId, data);
 
     return res.json({ saved: eventId });
   } catch (err) {
@@ -156,6 +157,24 @@ router.post('/:username/events/:id', ensureAdminOrCorrectUser, async (req, res, 
 });
 
 
-// may need route to unsave event from user
+/** DELETE /[username/events/id]  =>  { deleted: eventId }
+ * 
+ * Allows a user to delete a saved event
+ *
+ * Authorization required: login (Must be admin or user's own)
+ **/
+
+router.delete('/:username/events/:id',  ensureAdminOrCorrectUser, async (req, res, next) => {
+  try {
+    const username = req.params.username;
+    const eventId = +req.params.id;
+    
+    await User.deleteEvent(username, eventId);
+
+    return res.json({ deleted: eventId });
+  } catch (err) {
+    return next(err);
+  }
+});
 
 module.exports = router;
