@@ -9,7 +9,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE events (
-  id TEXT PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   artist VARCHAR(30) NOT NULL,
   organization VARCHAR(80),
   event_date TEXT NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE events (
 CREATE TABLE user_events (
   username VARCHAR(25)
     REFERENCES users(username) ON DELETE CASCADE,
-  event_id TEXT
+  event_id INTEGER
      REFERENCES events(id) ON DELETE CASCADE,
   PRIMARY KEY (username, event_id)
 );
