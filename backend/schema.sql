@@ -9,8 +9,8 @@ CREATE TABLE users (
 );
 
 CREATE TABLE events (
-  id INTEGER PRIMARY KEY,
-  artist VARCHAR(30) NOT NULL,
+  id INTEGER UNIQUE PRIMARY KEY,
+  artist VARCHAR(100) NOT NULL,
   organization VARCHAR(80),
   event_date TEXT NOT NULL,
   start_time TEXT NOT NULL,

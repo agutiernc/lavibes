@@ -13,9 +13,10 @@ export const TOKEN_STORAGE_ID = "concerts-token";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [eventIds, setEventIds] = useState(new Set([]));
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState({ msg: '', type: ''})
+  const [message, setMessage] = useState({ msg: '', type: ''});
 
   // load user info
   useEffect(() => {
@@ -29,6 +30,7 @@ const App = () => {
           let currentUser = await ConcertsApi.getCurrentUser(username);
 
           setCurrentUser(currentUser);
+          setEventIds(new Set(currentUser.events.map(event => event.id)));
         } catch (err) {
           console.error("App loadUserInfo: problem loading", err);
 
@@ -71,8 +73,37 @@ const App = () => {
   const logout = () => {
     setToken(null)
     setCurrentUser(null)
-    // localStorage.removeItem("concerts-token");
   }
+
+  const hasSavedEvent = (id) => eventIds.has(id);
+
+  const saveUserEvent = async (username, eventId, eventObj) => {
+    try {
+      // If the event is already saved, remove it
+      if (hasSavedEvent(eventId)) {
+        await ConcertsApi.deleteSavedEvent(username, eventId);
+
+        setEventIds(prevIds => new Set(prevIds.filter(id => id !== eventId)));
+      } else {
+        // Otherwise, save the event
+        await ConcertsApi.saveEvent(username, eventId, eventObj);
+
+        setEventIds(prevIds => new Set([...prevIds, eventId]));
+      }
+    } catch (err) {
+      console.error("App saveUserEvent: problem saving", err);
+    }
+  };
+  
+
+  const removeUserEvent = async (username, id) => {
+    await ConcertsApi.deleteSavedEvent(username, id);
+
+    const updatedEventIds = new Set([...eventIds].filter(eventId => eventId !== id));
+    
+    setEventIds(updatedEventIds);
+  }
+  
 
   if (!loading) {
     return <h1>Loading...</h1>
@@ -80,7 +111,7 @@ const App = () => {
 
   return (
     <Router>
-      <UserContext.Provider value={{ currentUser, setCurrentUser, message, setMessage }}>
+      <UserContext.Provider value={{ currentUser, setCurrentUser, hasSavedEvent, saveUserEvent, removeUserEvent, message, setMessage }}>
         <NavBar logout={logout} />
 
         <Container maxW={'90%'} mt={0}>

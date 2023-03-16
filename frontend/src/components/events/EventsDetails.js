@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { eventDate, getTime, getAddress, addressToMap } from '../../utils/utils';
+import UserContext from '../user/UserContext';
 import ConcertsApi from '../../api/api';
 import { GrMapLocation, GrCalendar, GrPhone, GrOrganization } from 'react-icons/gr';
 import { ExternalLinkIcon } from '@chakra-ui/icons'
@@ -38,8 +39,10 @@ const Feature = ({ heading, icon, text1, text2 }) => {
 
 const EventsDetails = () => {
   const { id } = useParams();
+  const { hasSavedEvent, saveUserEvent, currentUser, removeUserEvent } = useContext(UserContext)
   const [event, setEvent] = useState(null);
- 
+  const [saved, setSaved] = useState(false)
+
   // get event info
   useEffect(() => {
     const eventInfo = async () => {
@@ -51,10 +54,58 @@ const EventsDetails = () => {
     eventInfo();
   }, [id]);
 
-  if (!event) return null;
 
-  const address = getAddress(event.Location);
-  const addressMap = addressToMap(address)
+  // if event exists, add data to object
+  const eventData = useMemo(() => {
+    if (event) {
+      return {
+        id: event.ObjectId,
+        artist: event.Performing_Artist,
+        organization: event.Presenting_Organization.slice(14),
+        event_date: eventDate(event.Concert_Date),
+        start_time: getTime(event.Start_Time),
+        end_time: getTime(event.End_Time),
+        location: event.Concert_Location,
+        address: getAddress(event.Location),
+        contact: event.Contact,
+        contact_info: event.Contact_Info,
+        district: event.Supervisor_District,
+        year: event.Year
+      };
+    }
+
+    return null;
+  }, [event]);
+
+  // verify event data, curr user info, and if user has event saved
+  useEffect(() => {
+    if (eventData && currentUser) {
+      setSaved(hasSavedEvent(eventData.id))
+    }
+  }, [eventData, currentUser, hasSavedEvent])
+
+
+  // convert address to google maps URL
+  const addressMap = eventData ? addressToMap(eventData.address) : null;
+
+  const handleSaveBtn = () => {
+    try {
+      if (saved) {
+        removeUserEvent(currentUser.username, eventData.id);
+        setSaved(false);
+      } else {
+        saveUserEvent(currentUser.username, eventData.id, eventData);
+        setSaved(true);
+      }
+    } catch (err) {
+      console.log('Unable to save event');
+    }
+  };
+  
+
+  if (!event) {
+    return <div>Loading...</div>
+  }
   
   return (
     <Box as={Container} maxW="7xl" mt={20} p={4}>
@@ -67,13 +118,20 @@ const EventsDetails = () => {
         gap={4}
       >
         <GridItem colSpan={1}>
-          <VStack alignItems="flex-start" spacing="20px">
+          <VStack alignItems="center" spacing="20px" mt={5}>
             <chakra.h2 fontSize="3xl" fontWeight="700" mt={'20px'}>
               {event.Performing_Artist}
             </chakra.h2>
-            <Button colorScheme="green" size="md">
-              Call To Action
-            </Button>
+
+              <Button 
+                colorScheme="blue" 
+                size="md"
+                type="button"
+                onClick={handleSaveBtn}
+              >
+                {saved ? 'Remove from Favorites' : 'Add to Favorites'}
+              </Button>
+
           </VStack>
         </GridItem>
         <GridItem>
@@ -96,30 +154,30 @@ const EventsDetails = () => {
         <Feature
           heading={'Date-Time'}
           icon={<Icon as={GrCalendar} />}
-          text1={eventDate(event.Concert_Date)}
-          text2={`${getTime(event.Start_Time)} - ${getTime(event.End_Time)}`}
+          text1={eventData.event_date}
+          text2={`${eventData.start_time} - ${eventData.end_time}`}
         />
         <Feature
           heading={'Location'}
           icon={<Icon as={GrMapLocation} />}
-          text1={event.Concert_Location}
+          text1={eventData.location}
           text2={
             <Link href={addressMap} isExternal>
-              {address} <ExternalLinkIcon mx='2px' />
+              {eventData.address} <ExternalLinkIcon mx='2px' />
             </Link>
           }
         />
         <Feature
           heading={'Contact'}
           icon={<Icon as={GrPhone} />}
-          text1={event.Contact}
-          text2={event.Contact_Info}
+          text1={eventData.contact}
+          text2={eventData.contact_info}
         />
         <Feature
           heading={'Organization'}
           icon={<Icon as={GrOrganization} />}
-          text1={`Dept. of ${event.Presenting_Organization.slice(14)}`}
-          text2={`in District ${event.Supervisor_District}`}
+          text1={`Dept. of ${eventData.organization}`}
+          text2={`in District ${eventData.district}`}
         />
       </Grid>
     </Box>
@@ -130,7 +188,6 @@ export default EventsDetails;
 
 /**
  * Needs:
- * - Button to save event for user
  * - Image that Event Card originally has
  * - font colors
  */
