@@ -1,0 +1,43 @@
+.embla {
+  overflow: hidden;
+  position: relative;
+}
+
+.embla__container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  position: relative;
+}
+
+.embla__prev {
+  position: absolute;
+  top: 55px;
+  left: 38%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.embla__next {
+  position: absolute;
+  top: 55px;
+  right: 38%;
+  transform: translate(50%, -50%);
+  z-index: 1;
+}
+
+.embla > .embla__slide-heading {
+  display: inline-block;
+}
+
+@media screen and (max-width: 600px) {
+  .embla__prev, .embla__next {
+    padding-top: 5px;
+    margin-left: -40px;
+    margin-right: -40px;
+  }
+}

@@ -1,27 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import EventCard from './EventCard';
 import ConcertsApi from '../../api/api';
 
-
-import { Box, SimpleGrid, Heading, Center } from '@chakra-ui/react';
-import EventCard from './EventCard';
-// import BlazeSlider from 'blaze-slider'
-import { useBlazeSlider } from 'react-blaze-slider'
-import 'blaze-slider/dist/blaze.css'
-import './EventsList.css'
+import { Box, Heading, Center, Spinner, AbsoluteCenter, SimpleGrid, Icon } from '@chakra-ui/react';
+import useEmblaCarousel from 'embla-carousel-react'
+import AutoHeight from 'embla-carousel-auto-height'
+import './EventsList.css';
+import { BsChevronDoubleLeft, BsChevronDoubleRight } from "react-icons/bs";
 
 const EventsList = () => {
   const [events, setEvents] = useState([]);
   const [eventsMap, setEventsMap] = useState(new Map());
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, draggable: true }, [AutoHeight()])
 
-  const elRef = useBlazeSlider({
-    all: {
-      slidesToShow: 1,
-      slidesToScroll: 1
-    },
-    // enablePagination: true,
-  })
-
-
+  // embla API for resizing on different media - that's an effect
+  useEffect(() => {
+    if (emblaApi) {
+     emblaApi.reInit()
+    }
+  }, [emblaApi])
 
   // get all events data from backend
   useEffect(() => {
@@ -29,6 +26,7 @@ const EventsList = () => {
       let events = await ConcertsApi.getAllEvents();
 
       setEvents(events)
+     
     }
 
     eventsList()
@@ -38,24 +36,26 @@ const EventsList = () => {
   useEffect(() => {
     const mapEvents = (month, eventObj) => {
       setEventsMap(prevMap => {
-        const eventSet = prevMap.get(month);
-
-        if (prevMap.has(month) && !eventSet.has(eventObj)) {
+        const newMap = new Map(prevMap);
+        const eventSet = newMap.get(month);
+      
+        if (newMap.has(month) && !eventSet.has(eventObj)) {
           eventSet.add(eventObj);
-
-          return prevMap.set(month, eventSet);
+          newMap.set(month, eventSet);
         } else {
           const newSet = new Set();
-
+      
           newSet.add(eventObj);
-          
-          return prevMap.set(month, newSet);
+          newMap.set(month, newSet);
         }
+      
+        return newMap;
       });
+      
     }
 
     const mapEventsData = async () => {
-      await Promise.all(
+      await Promise.allSettled(
         events.map(e => {
           const getMonth = new Date(e.Concert_Date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
           
@@ -67,14 +67,11 @@ const EventsList = () => {
     mapEventsData()
   }, [events]);
 
-
-  if (!events) return null;
-  if (!eventsMap) return null;
-
-  const eventsBox = (month) => {
+  // prep data for event cards and sort by month
+  const eventsBox = events && eventsMap ? (month) => {
     const eventSet = eventsMap.get(month);
   
-    if (!eventSet) {
+    if (!eventSet || !eventsMap) {
       return [];
     }
   
@@ -86,55 +83,78 @@ const EventsList = () => {
     });
   
     return sortedEvents.map(e => (
-      <Box height='320px' key={e.ObjectId}>
+      <Box key={e.ObjectId}>
         <EventCard event={e} />
       </Box>
     ));
-  };
-  
-  // console.log(eventsMap.get('Jul'))
-  // console.log('# of events: ', events.length)
+  } : null;
+
+  // embla navigation buttons
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev()
+  }, [emblaApi])
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext()
+  }, [emblaApi])
+
+  // show spinner if still loading
+  if (events.length === 0 && eventsMap.size === 0) {
+    return (
+      <Box position='relative' minHeight='100vh'>
+        <AbsoluteCenter p='4' axis='both'>
+          <Spinner
+            thickness='4px'
+            speed='0.65s'
+            emptyColor='gray.200'
+            color='blue.500'
+            size='xl'
+          />
+        </AbsoluteCenter>
+      </Box>
+    )
+  }
 
   return (
-    <div className="blaze-slider" ref={elRef}>
-      <div className="blaze-container">
-        <Center>
-          <button className="blaze-prev">previous</button>
-          <button className="blaze-next">next</button>
-          <div className="blaze-pagination"></div>
-        </Center>
-        
-        
+    <div className="embla">
+      <button className="embla__prev" onClick={scrollPrev} type="button">
+        <Icon as={BsChevronDoubleLeft} boxSize={6} color={'blue'} />
+      </button>
+      <button className="embla__next" onClick={scrollNext} type="button">
+        <Icon as={BsChevronDoubleRight} boxSize={6} color={'blue'} />
+      </button>
 
-        <div className="blaze-track-container">
-          <div className="blaze-track">
-            
-            <div className='slide-1'>
-              <Center my={8}>
-                <Heading size={'xl'}>June</Heading>
-              </Center>
-              <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='15px' className='slide-grid'>
-                {eventsBox('Jun')}
-              </SimpleGrid>
-            </div>
-
-            <div className='slide-2'>
-              <Center my={8}>
-                <Heading size={'xl'}>July</Heading>
-              </Center>
-              <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='15px'>
-                {eventsBox('Jul')}
-              </SimpleGrid>
-            </div>
-
-            <div className='slide-3'>
-              <Center my={8}>
-                <Heading size={'xl'}>August</Heading>
-              </Center>
-              <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='15px'>
-                {eventsBox('Aug')}
-              </SimpleGrid>
-            </div>
+      <div className="embla__viewport" ref={emblaRef}>
+        <div className="embla__container">
+          <div className="embla__slide">
+            <Center my={8}>
+              <Heading size={'xl'} className="embla__slide-heading" px={3}>
+                June
+              </Heading>
+            </Center>
+            <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='15px'>
+              {eventsBox('Jun')}
+            </SimpleGrid>
+          </div>
+          <div className="embla__slide">
+            <Center my={8}>
+              <Heading size={'xl'} className="embla__slide-heading" px={3}>
+                July
+              </Heading>
+            </Center>
+            <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='15px'>
+              {eventsBox('Jul')}
+            </SimpleGrid>
+          </div>
+          <div className="embla__slide">
+            <Center my={8}>
+              <Heading size={'xl'} className="embla__slide-heading" px={3}>
+                August
+              </Heading>
+            </Center>
+            <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='15px'>
+              {eventsBox('Aug')}
+            </SimpleGrid>
           </div>
         </div>
       </div>
@@ -142,154 +162,4 @@ const EventsList = () => {
   )
 };
 
-export default EventsList;
-
-// adjust height for each slide
-// move pagination under Headings
-// move nav arrows to sides of Headings
-
-
-
-// import { register } from 'swiper/element/bundle';
-// import { Box, SimpleGrid, Heading, Center } from '@chakra-ui/react';
-// import './EventsList.css';
-// import EventCard from './EventCard';
-
-// register(); // for swiper carousel
-
-// const EventsList = () => {
-//   const swiperElRef = useRef(null);
-//   const [events, setEvents] = useState([]);
-//   const [eventsMap, setEventsMap] = useState(new Map());
-
-//   const swiper = new Swiper('.swiper', {
-//   navigation: {
-//     nextEl: '.swiper-button-next',
-//     prevEl: '.swiper-button-prev',
-//   },
-// });
-
-//   // swiper carousel
-//   useEffect(() => {
-//     // listen for Swiper events using addEventListener
-//     swiperElRef.current.addEventListener('progress', (e) => {
-//       const [swiper, progress] = e.detail;
-//       // console.log(swiper)
-//       // console.log(progress);
-//     });
-
-//     swiperElRef.current.addEventListener('slidechange', (e) => {
-//       console.log('slide changed');
-//     });
-//   }, []);
-
-//   // get all events data from backend
-//   useEffect(() => {
-//     const eventsList = async () => {
-//       let events = await ConcertsApi.getAllEvents();
-
-//       setEvents(events)
-//     }
-
-//     eventsList()
-//   }, []);
-
-//   // Map events by month
-//   useEffect(() => {
-//     const mapEvents = (month, eventObj) => {
-//       setEventsMap(prevMap => {
-//         const eventSet = prevMap.get(month);
-
-//         if (prevMap.has(month) && !eventSet.has(eventObj)) {
-//           eventSet.add(eventObj);
-
-//           return prevMap.set(month, eventSet);
-//         } else {
-//           const newSet = new Set();
-
-//           newSet.add(eventObj);
-          
-//           return prevMap.set(month, newSet);
-//         }
-//       });
-//     }
-
-//     const mapEventsData = async () => {
-//       await Promise.all(
-//         events.map(e => {
-//           const getMonth = new Date(e.Concert_Date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-          
-//           return mapEvents(getMonth.slice(0, 3), e);
-//         })
-//       );
-//     }
-
-//     mapEventsData()
-//   }, [events]);
-
-
-//   if (!events) return null;
-//   if (!eventsMap) return null;
-
-//   const eventsBox = (month) => {
-//     const eventSet = eventsMap.get(month);
-  
-//     if (!eventSet) {
-//       return [];
-//     }
-  
-//     const sortedEvents = Array.from(eventSet).sort((a, b) => {
-//       const dateA = new Date(a.Concert_Date);
-//       const dateB = new Date(b.Concert_Date);
-
-//       return dateA - dateB;
-//     });
-  
-//     return sortedEvents.map(e => (
-//       <Box height='320px' key={e.ObjectId}>
-//         <EventCard event={e} />
-//       </Box>
-//     ));
-//   };
-  
-//   // console.log(eventsMap.get('Jul'))
-//   // console.log('# of events: ', events.length)
-
-//   return (
-//     <swiper-container
-//       ref={swiperElRef}
-//       slides-per-view="1"
-//       navigation="true"
-//       pagination="true"
-//       rewind="true"
-//       autoHeight="true"
-//     >
-//       <swiper-slide>
-//         <Center my={8}>
-//           <Heading size={'xl'}>June</Heading>
-//         </Center>
-//         <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='15px'>
-//           {eventsBox('Jun')}
-//         </SimpleGrid>
-//       </swiper-slide>
-
-//       <swiper-slide>
-//         <Center my={8}>
-//           <Heading size={'xl'}>July</Heading>
-//         </Center>
-//         <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='15px'>
-//           {eventsBox('Jul')}
-//         </SimpleGrid>
-//       </swiper-slide>
-
-//       <swiper-slide>
-//         <Center my={8}>
-//           <Heading size={'xl'}>August</Heading>
-//         </Center>
-//         <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='15px'>
-//           {eventsBox('Aug')}
-//         </SimpleGrid>
-//       </swiper-slide>
-//     </swiper-container>
-//   )
-// };
+export default EventsList

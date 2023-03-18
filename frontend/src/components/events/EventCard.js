@@ -25,7 +25,6 @@ const EventCard = ({ event }) => {
           rounded={'md'}
           p={3}
           overflow={'hidden'}
-          h={'310px'}
         >
 
           <Box

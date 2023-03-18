@@ -127,7 +127,16 @@ const NavBar = ({ logout }) => {
     <>
       <Box bg={useColorModeValue('#27048c', '#0b1029')} px={9}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Box color="#FFF">LA Vibes</Box>
+          <Box color="#FFF">
+            <Link
+              href="/events"
+              _hover={{
+                textDecoration: 'none',
+              }}
+            >
+              LA Vibes
+            </Link>
+          </Box>
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>

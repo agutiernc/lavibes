@@ -4,7 +4,7 @@ import { decodeToken } from 'react-jwt';
 import UserContext from './components/user/UserContext';
 import useLocalStorage from './hooks/useLocalStorage';
 import ConcertsApi from './api/api';
-import { Container } from '@chakra-ui/react';
+import { Container, Spinner, AbsoluteCenter, Box } from '@chakra-ui/react';
 
 import NavBar from "./routes-nav/NavBar";
 import ComponentRoutes from "./routes-nav/ComponentRoutes";
@@ -95,7 +95,6 @@ const App = () => {
     }
   };
   
-
   const removeUserEvent = async (username, id) => {
     await ConcertsApi.deleteSavedEvent(username, id);
 
@@ -104,9 +103,21 @@ const App = () => {
     setEventIds(updatedEventIds);
   }
   
-
+  // show spinner if components are still loading
   if (!loading) {
-    return <h1>Loading...</h1>
+    return (
+      <Box position='relative' minHeight='100vh'>
+        <AbsoluteCenter p='4' axis='both'>
+          <Spinner
+            thickness='4px'
+            speed='0.65s'
+            emptyColor='gray.200'
+            color='blue.500'
+            size='xl'
+          />
+        </AbsoluteCenter>
+      </Box>
+    )
   }
 
   return (
