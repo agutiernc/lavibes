@@ -1,5 +1,5 @@
 import React, { useState, useContext, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import UserContext from './UserContext';
 import {
   Container,
@@ -27,6 +27,11 @@ const UserEvents = () => {
     '2px 6px 8px rgba(9, 17, 28, 0.9)'
   );
   
+  // redirect if not current user
+  if (!currentUser) {
+    return <Navigate to={'/'} />;
+  }
+  
   const handleDeleteBtn = (username, eventId) => {
     try {
       removeUserEvent(username, eventId);
@@ -37,7 +42,7 @@ const UserEvents = () => {
       // update state with the new savedEvents array
       setSavedEvents(newSavedEvents);
     } catch (err) {
-      console.log('Unable to delete event')
+      console.log('Unable to delete event');
     }
   };
 
@@ -71,7 +76,6 @@ const UserEvents = () => {
                     <Text
                       color={textColor}
                       fontSize={{ base: 'sm', sm: 'md', md: 'lg' }}
-                    // dangerouslySetInnerHTML={{ __html: event.artist }}
                     >
                       {event.artist} @ {event.location}
                     </Text>

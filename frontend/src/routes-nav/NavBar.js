@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import UserContext from "../components/user/UserContext";
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { FaUser } from 'react-icons/fa';
+import { GiPalmTree } from 'react-icons/gi';
+import { HiMusicalNote } from 'react-icons/hi2';
 import {
   Box,
   Flex,
@@ -16,6 +18,7 @@ import {
   useColorModeValue,
   Stack,
   HStack,
+  VStack,
   useColorMode,
   Center,
   Icon,
@@ -68,12 +71,23 @@ const NavBar = ({ logout }) => {
 
             <MenuItem>
               <Link
-                href="/settings"
+                href={`/user/${currentUser.username}/settings`}
                 _hover={{
                   textDecoration: 'none',
                 }}
               >
                 Account Settings
+              </Link>
+            </MenuItem>
+
+            <MenuItem>
+              <Link
+                href={`/user/${currentUser.username}/events`}
+                _hover={{
+                  textDecoration: 'none',
+                }}
+              >
+                Saved Events
               </Link>
             </MenuItem>
 
@@ -134,7 +148,22 @@ const NavBar = ({ logout }) => {
                 textDecoration: 'none',
               }}
             >
-              LA Vibes
+              <VStack>
+                <Box>
+                  <Flex>
+                    <Icon as={GiPalmTree} boxSize={6} />
+                    <Text fontWeight={'bold'}>LA Vibes</Text>
+                    <Icon as={GiPalmTree} boxSize={6} />
+                  </Flex>
+                </Box>
+                <Box>
+                  <Flex>
+                    <Icon as={HiMusicalNote} boxSize={3} />
+                    <Text fontSize={'0.8rem'}>Free Summer Concerts</Text>
+                    <Icon as={HiMusicalNote} boxSize={3} />
+                  </Flex>
+                </Box>
+              </VStack>
             </Link>
           </Box>
 
@@ -155,8 +184,3 @@ const NavBar = ({ logout }) => {
 }
 
 export default NavBar;
-
-/**
- * Needs:
- *  - better logo
- */

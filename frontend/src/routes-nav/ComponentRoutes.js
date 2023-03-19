@@ -17,7 +17,7 @@ const ComponentRoutes = ({ login, signup }) => {
         <Route path='/events' element={<EventsList />} />
         <Route path='/events/:id' element={<EventsDetails />} />
         <Route path='/user/:username/events' element={<UserEvents />} />
-        <Route path='/settings' element={<ProfileForm />} />
+        <Route path='/user/:username/settings' element={<ProfileForm />} />
         <Route path='/signup' element={<SignupForm signup={signup} />} />
         <Route path='/login' element={<LoginForm login={login} />} />
         <Route path='*' element={<Navigate to='/' replace />} />

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Box, Heading, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { Icon, HStack, Center } from '@chakra-ui/react';
 import { FaRegSadTear, FaMusic } from 'react-icons/fa';
 import { GiPalmTree } from 'react-icons/gi';
+import { Box, Heading, Text, Icon, HStack, Center } from '@chakra-ui/react';
 
 const NoUserEvents = () => {
   return (
@@ -21,7 +20,7 @@ const NoUserEvents = () => {
       </Heading>
 
       <Text color={'gray.500'}>
-        <Link to={'/events'}>Click here to browser events to save.</Link>
+        <Link to={'/events'}>Click here to browse events to save.</Link>
       </Text>
     </Box>
   );
