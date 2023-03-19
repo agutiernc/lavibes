@@ -4,7 +4,7 @@ import { eventDate, getTime, getAddress, addressToMap } from '../../utils/utils'
 import UserContext from '../user/UserContext';
 import ConcertsApi from '../../api/api';
 import { GrMapLocation, GrCalendar, GrPhone, GrOrganization } from 'react-icons/gr';
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 import {
   Box,
   VStack,
@@ -17,7 +17,9 @@ import {
   Container,
   Icon,
   Image,
-  Link
+  Link,
+  AbsoluteCenter,
+  Spinner
 } from '@chakra-ui/react';
 
 
@@ -39,9 +41,9 @@ const Feature = ({ heading, icon, text1, text2 }) => {
 
 const EventsDetails = () => {
   const { id } = useParams();
-  const { hasSavedEvent, saveUserEvent, currentUser, removeUserEvent } = useContext(UserContext)
+  const { hasSavedEvent, saveUserEvent, currentUser, removeUserEvent } = useContext(UserContext);
   const [event, setEvent] = useState(null);
-  const [saved, setSaved] = useState(false)
+  const [saved, setSaved] = useState(false);
 
   // get event info
   useEffect(() => {
@@ -49,7 +51,7 @@ const EventsDetails = () => {
       const event = await ConcertsApi.getAllEvents(id);
 
       setEvent(event);
-    }
+    };
 
     eventInfo();
   }, [id]);
@@ -72,7 +74,7 @@ const EventsDetails = () => {
         district: event.Supervisor_District,
         year: event.Year
       };
-    }
+    };
 
     return null;
   }, [event]);
@@ -80,9 +82,9 @@ const EventsDetails = () => {
   // verify event data, curr user info, and if user has event saved
   useEffect(() => {
     if (eventData && currentUser) {
-      setSaved(hasSavedEvent(eventData.id))
-    }
-  }, [eventData, currentUser, hasSavedEvent])
+      setSaved(hasSavedEvent(eventData.id));
+    };
+  }, [eventData, currentUser, hasSavedEvent]);
 
 
   // convert address to google maps URL
@@ -101,11 +103,23 @@ const EventsDetails = () => {
       console.log('Unable to save event');
     }
   };
-  
 
+  // show spinner if components are still loading
   if (!event) {
-    return <div>Loading...</div>
-  }
+    return (
+      <Box position='relative' minHeight='100vh'>
+        <AbsoluteCenter p='4' axis='both'>
+          <Spinner
+            thickness='4px'
+            speed='0.65s'
+            emptyColor='gray.200'
+            color='blue.500'
+            size='xl'
+          />
+        </AbsoluteCenter>
+      </Box>
+    );
+  };
   
   return (
     <Box as={Container} maxW="7xl" mt={20} p={4}>
@@ -182,7 +196,7 @@ const EventsDetails = () => {
       </Grid>
     </Box>
   );
-}
+};
 
 export default EventsDetails;
 

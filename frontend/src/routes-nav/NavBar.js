@@ -23,7 +23,8 @@ import {
   Center,
   Icon,
   Link,
-  Text
+  Text,
+  Divider
 } from '@chakra-ui/react';
 
 const NavBar = ({ logout }) => {
@@ -169,8 +170,7 @@ const NavBar = ({ logout }) => {
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
-
-              <Button onClick={toggleColorMode} rounded={'full'} colorScheme="teal">
+              <Button onClick={toggleColorMode} rounded={'full'} colorScheme="teal" size='sm' mt={1}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
 

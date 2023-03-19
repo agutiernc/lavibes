@@ -48,9 +48,9 @@ const App = () => {
   
   const signup = async (data) => {
     try {
-      let token = await ConcertsApi.signup(data)
+      let token = await ConcertsApi.signup(data);
 
-      setToken(token)
+      setToken(token);
 
       return { success: true };
     } catch (err) {
@@ -71,8 +71,8 @@ const App = () => {
   }
 
   const logout = () => {
-    setToken(null)
-    setCurrentUser(null)
+    setToken(null);
+    setCurrentUser(null);
   }
 
   const hasSavedEvent = (id) => eventIds.has(id);

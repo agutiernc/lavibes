@@ -137,7 +137,7 @@ const ProfileForm = () => {
           <FormControl id="password" isRequired>
             <FormLabel>Password</FormLabel>
             <Input
-              placeholder="Password"
+              placeholder="Enter current password or new password"
               _placeholder={{ color: 'gray.500' }}
               type="password"
               mb={2}
