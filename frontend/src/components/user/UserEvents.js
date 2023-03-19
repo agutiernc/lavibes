@@ -1,51 +1,58 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import UserContext from './UserContext';
-import { Fragment } from 'react';
-import { GoPrimitiveDot } from 'react-icons/go';
 import {
   Container,
   Flex,
   Stack,
   VStack,
-  Icon,
   Divider,
   useColorModeValue,
   Avatar,
   Text,
-  Heading
+  Heading,
+  CloseButton
 } from '@chakra-ui/react';
+import NoUserEvents from './NoUserEvents';
 
 const UserEvents = () => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, removeUserEvent } = useContext(UserContext);
   const [savedEvents, setSavedEvents] = useState(currentUser.events);
-  const bg1 = useColorModeValue('gray.200', 'gray.700')
-  const textColor = useColorModeValue('black', 'white')
-  const textColor2 = useColorModeValue('gray.400', 'gray.200')
-  // console.log(savedEvents)
+  const bg1 = useColorModeValue('gray.200', 'gray.700');
+  const textColor = useColorModeValue('black', 'white');
+  const textColor2 = useColorModeValue('gray.400', 'gray.200');
+  const stackColor1 = useColorModeValue('gray.100', 'gray.800');
+  const stackColor2 = useColorModeValue(
+    '2px 6px 8px rgba(160, 174, 192, 0.6)',
+    '2px 6px 8px rgba(9, 17, 28, 0.9)'
+  );
+  
+  const handleDeleteBtn = (username, eventId) => {
+    try {
+      removeUserEvent(username, eventId);
 
-  // const handleDeleteBtn = (eventId) => {
-  //   // remove the event from savedEvents array
-  //   const newSavedEvents = savedEvents.filter(event => event.id !== eventId);
+      // remove the event from savedEvents array
+      const newSavedEvents = savedEvents.filter(event => event.id !== eventId);
 
-  //   // update state with the new savedEvents array
-  //   setSavedEvents(newSavedEvents);
-  // };
+      // update state with the new savedEvents array
+      setSavedEvents(newSavedEvents);
+    } catch (err) {
+      console.log('Unable to delete event')
+    }
+  };
 
   return (
     <Container maxW="3xl" p={{ base: 5, md: 10 }}>
-      <Heading textAlign={'center'} mb={10}>Saved Events</Heading>
+      <Heading textAlign={'center'} mb={10} color={'blue.500'}>Saved Events</Heading>
       <VStack
-        boxShadow={useColorModeValue(
-          '2px 6px 8px rgba(160, 174, 192, 0.6)',
-          '2px 6px 8px rgba(9, 17, 28, 0.9)'
-        )}
-        bg={useColorModeValue('gray.100', 'gray.800')}
+        bg={stackColor1}
+        boxShadow={stackColor2}
         rounded="md"
         overflow="hidden"
         spacing={0}
       >
-        {savedEvents.map((event, index) => (
-          <Fragment key={index}>
+        { savedEvents.length === 0 ? <NoUserEvents /> : savedEvents.map((event) => (
+          <Fragment key={event.id}>
             <Flex
               w="100%"
               justify="space-between"
@@ -54,51 +61,44 @@ const UserEvents = () => {
             >
               <Stack spacing={0} direction="row" alignItems="center">
                 <Flex p={4}>
-                  <Avatar size="md" name={event.artist} src={''} />
+                  <Link to={`/events/${event.id}`}>
+                    <Avatar size="md" name={event.artist} src={''} />
+                  </Link>
                 </Flex>
                 
                 <Flex direction="column" p={2}>
-                  <Text
-                    color={textColor}
-                    fontSize={{ base: 'sm', sm: 'md', md: 'lg' }}
-                    dangerouslySetInnerHTML={{ __html: event.artist }}
-                  />
-                  <Text
-                    color={textColor2}
-                    fontSize={{ base: 'sm', sm: 'md' }}
-                  >
-                    Jun 11
-                  </Text>
+                  <Link to={`/events/${event.id}`}>
+                    <Text
+                      color={textColor}
+                      fontSize={{ base: 'sm', sm: 'md', md: 'lg' }}
+                    // dangerouslySetInnerHTML={{ __html: event.artist }}
+                    >
+                      {event.artist} @ {event.location}
+                    </Text>
+                    <Text
+                      color={textColor2}
+                      fontSize={{ base: 'sm', sm: 'md' }}
+                    >
+                      {event.event_date} @ {event.start_time}
+                    </Text>
+                  </Link>
                 </Flex>
               </Stack>
-              {/* {notification.isOnline && (
-                <Flex p={4}>
-                  <Icon as={GoPrimitiveDot} w={5} h={5} color="blue.400" />
-                </Flex>
-              )} */}
+
+              <Flex p={4}>
+                <CloseButton
+                  size={'md'}
+                  onClick={() => handleDeleteBtn(currentUser.username, event.id)}
+                />
+              </Flex>
             </Flex>
-            {/* {notifications.length - 1 !== index && <Divider m={0} />} */}
+
+            <Divider m={0} />
           </Fragment>
         ))}
       </VStack>
     </Container>
   );
 };
-
-  // return (
-  //   <div>
-  //     <h1>Saved Events</h1>
-      
-  //     {
-  //       savedEvents.map(e => (
-  //         <div key={e.id}>
-  //           <h1>{e.artist}</h1>
-  //         </div>
-  //       ))
-  //     }
-  //   </div>
-  // );
-// };
-
 
 export default UserEvents;
