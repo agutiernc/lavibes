@@ -16,20 +16,20 @@ const EventsList = () => {
   // embla API for resizing on different media - that's an effect
   useEffect(() => {
     if (emblaApi) {
-     emblaApi.reInit()
+     emblaApi.reInit();
     }
-  }, [emblaApi])
+  }, [emblaApi]);
 
   // get all events data from backend
   useEffect(() => {
     const eventsList = async () => {
       let events = await ConcertsApi.getAllEvents();
 
-      setEvents(events)
+      setEvents(events);
      
     }
 
-    eventsList()
+    eventsList();
   }, []);
 
   // Map events by month
@@ -112,7 +112,7 @@ const EventsList = () => {
           />
         </AbsoluteCenter>
       </Box>
-    )
+    );
   }
 
   return (

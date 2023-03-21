@@ -1,5 +1,6 @@
 import React from 'react';
 import ImageCarousel from './ImageCarousel';
+import { Link } from 'react-router-dom';
 import {
   Container,
   Stack,
@@ -7,13 +8,7 @@ import {
   Box,
   Heading,
   Text,
-  Button,
-  Image,
-  Icon,
-  IconButton,
-  createIcon,
-  IconProps,
-  useColorModeValue,
+  Button
 } from '@chakra-ui/react';
 
 const Main = () => {
@@ -85,27 +80,32 @@ const Main = () => {
             <Stack
               spacing={{ base: 4, sm: 6 }}
               direction={{ base: 'column', sm: 'row' }}
+              alignItems="center"
             >
-              <Button
-                boxShadow={'0px 0px 6px white'}
-                size={'lg'}
-                fontWeight={'normal'}
-                px={6}
-                colorScheme={'red'}
-                bg={'pink.600'}
-                _hover={{ bg: 'pink.500' }}
-              >
-                See Concerts Near You
-              </Button>
-              <Button
-                boxShadow={'0px 0px 8px white'}
-                _hover={{ bg: 'pink.500', color: 'white' }}
-                size={'lg'}
-                fontWeight={'normal'}
-                px={6}
-              >
-                Sign Up
-              </Button>
+              <Link to={'/events'}>
+                <Button
+                  boxShadow={'0px 0px 6px white'}
+                  size={'lg'}
+                  fontWeight={'normal'}
+                  px={6}
+                  colorScheme={'red'}
+                  bg={'pink.600'}
+                  _hover={{ bg: 'pink.500' }}
+                >
+                  See Concerts Near You
+                </Button>
+              </Link>
+              <Link to={'/signup'}>
+                <Button
+                  boxShadow={'0px 0px 8px white'}
+                  _hover={{ bg: 'pink.300', color: 'white' }}
+                  size={'lg'}
+                  fontWeight={'normal'}
+                  px={6}
+                >
+                  Sign Up
+                </Button>
+              </Link>
             </Stack>
           </Stack>
           <Flex
@@ -117,15 +117,13 @@ const Main = () => {
           >
             <Box
               position={'relative'}
-              height={'300px'}
+              height={[130, 200, 300]}
               rounded={'2xl'}
               boxShadow="0 0 10px 3px white"
-              width={'90%'}
+              w={['60%', '70%', '90%']}
               overflow={'hidden'}
             >
-              <ImageCarousel
-                
-              />
+              <ImageCarousel />
             </Box>
           </Flex>
         </Stack>

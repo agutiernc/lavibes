@@ -14,7 +14,6 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
-  // useDisclosure,
   useColorModeValue,
   Stack,
   HStack,
@@ -23,14 +22,12 @@ import {
   Center,
   Icon,
   Link,
-  Text,
-  Divider
+  Text
 } from '@chakra-ui/react';
 
 const NavBar = ({ logout }) => {
   const { currentUser } = useContext(UserContext);
   const { colorMode, toggleColorMode } = useColorMode();
-  // const { isOpen, onOpen, onClose } = useDisclosure();
 
   // display when a user is logged in
   const loggedIn = () => {
