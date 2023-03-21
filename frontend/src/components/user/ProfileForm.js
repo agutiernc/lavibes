@@ -21,6 +21,7 @@ const ProfileForm = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
   const initialValue = currentUser ? {
     password: '',
+    passwordVerify: '',
     email: currentUser.email,
     username: currentUser.username,
     firstName: currentUser.firstName,
@@ -45,12 +46,19 @@ const ProfileForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     let profileData = {
       firstName: formData.firstName,
       lastName: formData.lastName,
       email: formData.email,
       password: formData.password,
+    }
+
+    // verify password confirmation
+    if (profileData.password !== formData.passwordVerify) {
+      console.log("password don't match!")
+
+      return;
     }
 
     let updatedUser;
@@ -65,21 +73,16 @@ const ProfileForm = () => {
       return;
     }
 
-    setFormData(f => f ({ ...f, password: '' }))
-    setCurrentUser(updatedUser)
+    setFormData({ ...formData, password: '', passwordVerify: '' });
+    setCurrentUser(updatedUser);
   }
 
   return (
-    <Flex
-      align={'center'}
-      justify={'center'}
-      // bg={useColorModeValue('gray.50', 'gray.800')}
-    >
+    <Flex align={'center'} justify={'center'}>
       <Stack
         spacing={4}
         w={'sm'}
         maxW={'md'}
-        // bg={useColorModeValue('white', 'gray.700')}
         rounded={'xl'}
         boxShadow={'lg'}
         p={6}
@@ -137,6 +140,9 @@ const ProfileForm = () => {
           <FormControl id="password" isRequired>
             <FormLabel>Password</FormLabel>
             <Input
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
               placeholder="Enter current password or new password"
               _placeholder={{ color: 'gray.500' }}
               type="password"
@@ -147,6 +153,9 @@ const ProfileForm = () => {
           <FormControl id="password2" isRequired>
             <FormLabel>Confirm Password</FormLabel>
             <Input
+              name='passwordVerify'
+              value={formData.passwordVerify}
+              onChange={handleChange}
               placeholder="Confirm password"
               _placeholder={{ color: 'gray.500' }}
               type="password"
@@ -169,6 +178,7 @@ const ProfileForm = () => {
 
             <Button
               bg={'blue.400'}
+              type="submit"
               color={'white'}
               w="full"
               _hover={{
@@ -193,6 +203,4 @@ export default ProfileForm;
  * - If updating first 3 fields, enter/confirm password
  * - If only updating password, confirm it too
  * - Chakra has a tooltip - maybefor for valid passwords?
- * - look into this => https://github.com/sators/react-password-checklist
- * -    or react-hook-form
  */
