@@ -99,6 +99,7 @@ const Main = () => {
                   colorScheme={'red'}
                   bg={'pink.600'}
                   _hover={{ bg: 'pink.500' }}
+                  color={'white'}
                 >
                   See Concerts Near You
                 </Button>
@@ -110,6 +111,8 @@ const Main = () => {
                   size={'lg'}
                   fontWeight={'normal'}
                   px={6}
+                  bg={'pink.500'}
+                  color={'white'}
                 >
                   Sign Up
                 </Button>
