@@ -44,7 +44,9 @@ const EventsDetails = () => {
   const { hasSavedEvent, saveUserEvent, currentUser, removeUserEvent } = useContext(UserContext);
   const [event, setEvent] = useState(null);
   const [saved, setSaved] = useState(false);
-  const imgURL = randomImgURL();
+  const imgURL = useMemo(() => {
+    return randomImgURL();
+  }, []);
 
   // get event info
   useEffect(() => {

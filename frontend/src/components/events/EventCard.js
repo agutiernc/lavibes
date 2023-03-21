@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { eventDate, getTime, randomImgURL } from '../../utils/utils';
 import { Link } from 'react-router-dom';
 import {
@@ -13,7 +13,9 @@ import {
 
 const EventCard = ({ event }) => {
   const city = event.Location.substring(event.Location.indexOf("\n") + 1, event.Location.indexOf(", CA"));
-  const imgURL = randomImgURL();
+  const imgURL = useMemo(() => {
+    return randomImgURL();
+  }, []);
 
   return (
     <Center>
