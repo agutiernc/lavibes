@@ -45,3 +45,18 @@ export const addressToMap = (str) => {
 
   return `${MAP_URL}/${addr}`;
 }
+
+
+// used to randomly display different event card images
+export const randomImgURL = () => {
+  const images = [
+    '/images/palms.jpg', '/images/dancing.jpg', '/images/night-show.jpg',
+    '/images/turntables.jpg', '/images/hands-concert.jpg', '/images/microphone.jpg',
+    '/images/drums.jpg', '/images/people.jpg', '/images/phone-cam.jpg'
+  ];
+
+  const randomIdx = Math.floor(Math.random() * images.length);
+  const randomImg = images[randomIdx];
+
+  return randomImg;
+}

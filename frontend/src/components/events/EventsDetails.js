@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { eventDate, getTime, getAddress, addressToMap } from '../../utils/utils';
+import { eventDate, getTime, getAddress, addressToMap, randomImgURL } from '../../utils/utils';
 import UserContext from '../user/UserContext';
 import ConcertsApi from '../../api/api';
 import { GrMapLocation, GrCalendar, GrPhone, GrOrganization } from 'react-icons/gr';
@@ -44,6 +44,7 @@ const EventsDetails = () => {
   const { hasSavedEvent, saveUserEvent, currentUser, removeUserEvent } = useContext(UserContext);
   const [event, setEvent] = useState(null);
   const [saved, setSaved] = useState(false);
+  const imgURL = randomImgURL();
 
   // get event info
   useEffect(() => {
@@ -151,7 +152,7 @@ const EventsDetails = () => {
         <GridItem>
           <Flex>
             <chakra.p>
-              <Image src={'/images/palms.jpg'} boxSize={'90%'} borderRadius={'10px'} boxShadow={'2xl'}/>
+              <Image src={imgURL} boxSize={'90%'} borderRadius={'10px'} boxShadow={'2xl'}/>
             </chakra.p>
           </Flex>
         </GridItem>
@@ -199,9 +200,3 @@ const EventsDetails = () => {
 };
 
 export default EventsDetails;
-
-/**
- * Needs:
- * - Image that Event Card originally has
- * - font colors
- */

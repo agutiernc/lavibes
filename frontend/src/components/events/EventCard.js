@@ -1,5 +1,5 @@
 import React from 'react';
-import { eventDate, getTime } from '../../utils/utils';
+import { eventDate, getTime, randomImgURL } from '../../utils/utils';
 import { Link } from 'react-router-dom';
 import {
   Box,
@@ -13,7 +13,8 @@ import {
 
 const EventCard = ({ event }) => {
   const city = event.Location.substring(event.Location.indexOf("\n") + 1, event.Location.indexOf(", CA"));
-  
+  const imgURL = randomImgURL();
+
   return (
     <Center>
       <Link to={`${event.ObjectId}`}>
@@ -35,7 +36,7 @@ const EventCard = ({ event }) => {
             mb={7}
             pos={'relative'}
           >
-            <Image src={'/images/palms.jpg'} layout={'fill'} />
+            <Image src={imgURL} layout={'fill'} />
           </Box>
 
           <Stack mt={14} spacing={3}>
