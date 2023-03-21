@@ -116,7 +116,7 @@ const NavBar = ({ logout }) => {
           }}
           href="/login"
         >
-          <Button colorScheme="whiteAlpha" variant="solid">
+          <Button colorScheme="pink" variant="solid">
             Sign in
           </Button>
         </Link>
@@ -127,7 +127,7 @@ const NavBar = ({ logout }) => {
           }}
           href="/signup"
         >
-          <Button colorScheme="whiteAlpha" variant="solid">
+          <Button colorScheme="pink" variant="solid">
             Sign up
           </Button>
         </Link>
@@ -141,26 +141,26 @@ const NavBar = ({ logout }) => {
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Box color="#FFF">
             <Link
-              href="/events"
+              href={`${currentUser ? '/events' : '/'}`}
               _hover={{
                 textDecoration: 'none',
               }}
             >
               <VStack>
                 <Box>
-                  <Flex>
-                    <Icon as={GiPalmTree} boxSize={6} />
-                    <Text fontWeight={'bold'}>LA Vibes</Text>
-                    <Icon as={GiPalmTree} boxSize={6} />
+                  <Flex color={'pink.600'}>
+                    <Icon as={GiPalmTree} boxSize={9} />
+                    <Text 
+                      fontWeight={'bold'} 
+                      fontFamily={'Oooh Baby'}
+                      fontSize={'3xl'}
+                    >
+                      LA Vibes
+                    </Text>
+                    <Icon as={HiMusicalNote} boxSize={4} />
                   </Flex>
                 </Box>
-                <Box>
-                  <Flex>
-                    <Icon as={HiMusicalNote} boxSize={3} />
-                    <Text fontSize={'0.8rem'}>Free Summer Concerts</Text>
-                    <Icon as={HiMusicalNote} boxSize={3} />
-                  </Flex>
-                </Box>
+                
               </VStack>
             </Link>
           </Box>
