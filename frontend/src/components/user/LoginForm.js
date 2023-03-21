@@ -26,9 +26,9 @@ const LoginForm = ({ login }) => {
 
   const [formData, setFormData] = useState(initialValue);
 
-  // redirect currently logged user to main page
+  // redirect currently logged user to events page
   if (currentUser) {
-    return <Navigate to='/' />
+    return <Navigate to='/events' />
   }
   
   const handleChange = (e) => {
@@ -47,7 +47,7 @@ const LoginForm = ({ login }) => {
     
     // redirect successfully logged in user to main page
     if (res.success) {
-      navigate('/');
+      navigate('/events');
     } else {
       setMessage({ msg: 'Incorrect Username or Password', type: 'error' })
       setFormData(initialValue)

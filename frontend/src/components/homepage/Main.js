@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import UserContext from '../user/UserContext';
 import ImageCarousel from './ImageCarousel';
-import { Link } from 'react-router-dom';
 import {
   Container,
   Stack,
@@ -12,6 +13,13 @@ import {
 } from '@chakra-ui/react';
 
 const Main = () => {
+  const { currentUser } = useContext(UserContext)
+
+  // redirect currently logged user to events page
+  if (currentUser) {
+    return <Navigate to='/events' />;
+  }
+  
   return (
     <Box
       bgImage="url('/images/background-concert.jpg')"

@@ -23,9 +23,9 @@ const SignupForm = ({ signup }) => {
 
   const [formData, setFormData] = useState(initialState);
 
-  // redirect currently logged user to main page
+  // redirect currently logged user to events page
   if (currentUser) {
-    return <Navigate to='/' />;
+    return <Navigate to='/events' />;
   }
 
   const handleChange = (e) => {
