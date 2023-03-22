@@ -11,7 +11,6 @@ import {
   Heading,
   Input,
   Stack,
-  // useColorModeValue,
   Avatar,
   Center,
   Icon
@@ -57,7 +56,7 @@ const ProfileForm = () => {
     // verify password confirmation
     if (profileData.password !== formData.passwordVerify) {
       console.log("password don't match!")
-
+      // add setMessage
       return;
     }
 

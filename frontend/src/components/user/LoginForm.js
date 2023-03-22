@@ -81,6 +81,7 @@ const LoginForm = ({ login }) => {
                   value={formData.username}
                   onChange={handleChange}
                   mb="4"
+                  required
                 />
               </FormControl>
 
@@ -92,6 +93,7 @@ const LoginForm = ({ login }) => {
                   value={formData.password}
                   onChange={handleChange}
                   mb="4"
+                  required
                 />
               </FormControl>
 

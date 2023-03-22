@@ -34,6 +34,7 @@ const Main = () => {
       zIndex={-1}
       width="100vw"
       height="100vh"
+      boxShadow={"inset 0 0 0 1000px rgba(0, 0, 0, 0.2)"}
     >
       <Container
         maxW={'7xl'}
@@ -57,7 +58,7 @@ const Main = () => {
                 color={'white'}
                 position={'relative'}
                 fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}
-                textShadow='0px 0px 5px white'
+                textShadow='0px 0px 3px white'
                 _after={{
                   content: "''",
                   width: 'full',
@@ -92,7 +93,7 @@ const Main = () => {
             >
               <Link to={'/events'}>
                 <Button
-                  boxShadow={'0px 0px 6px white'}
+                  boxShadow={'0px 0px 7px white'}
                   size={'lg'}
                   fontWeight={'normal'}
                   px={6}
@@ -106,7 +107,7 @@ const Main = () => {
               </Link>
               <Link to={'/signup'}>
                 <Button
-                  boxShadow={'0px 0px 8px white'}
+                  boxShadow={'0px 0px 7px white'}
                   _hover={{ bg: 'pink.300', color: 'white' }}
                   size={'lg'}
                   fontWeight={'normal'}

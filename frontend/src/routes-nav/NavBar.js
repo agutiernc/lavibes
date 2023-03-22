@@ -136,7 +136,11 @@ const NavBar = ({ logout }) => {
 
   return (
     <>
-      <Box bg={useColorModeValue('#27048c', '#0b1029')} px={5}>
+      <Box
+        bg={useColorModeValue('#160254', '#0b1029')}
+        px={5}
+        boxShadow={"inset 0 0 0 1000px rgba(0, 0, 0, 0.2)"}
+      >
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Box color="#FFF">
             <Link
@@ -148,13 +152,12 @@ const NavBar = ({ logout }) => {
               <HStack>
                 <Box >
                   <Flex color={'pink.600'}>
-                    <Icon as={GiPalmTree} boxSize={[6, 9]} mt={[0.5, 3]} style={{ filter:  "drop-shadow(0px 0px 0.8px white)" }} />
+                    <Icon as={GiPalmTree} boxSize={[6, 9]} mt={[0.5, 3]} />
                     <Text 
                       fontWeight={'bold'} 
                       fontFamily={'Oooh Baby'}
                       fontSize={['1xl', '2xl', '4xl']}
                       mt={[1.5, 2]}
-                      textShadow="0px 0px 2.2px white"
                     >
                       LA Vibes
                     </Text>
