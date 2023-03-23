@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import React, { useContext,  useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import UserContext from '../user/UserContext';
 import ImageCarousel from './ImageCarousel';
 import {
@@ -14,11 +14,15 @@ import {
 
 const Main = () => {
   const { currentUser } = useContext(UserContext)
+  const navigate = useNavigate();
 
   // redirect currently logged user to events page
-  if (currentUser) {
-    return <Navigate to='/events' />;
-  }
+  useEffect(() => {
+    if (currentUser) {
+      return navigate('/events')
+    }
+  }, [currentUser, navigate])
+
   
   return (
     <Box

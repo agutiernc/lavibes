@@ -71,6 +71,7 @@ const App = () => {
   }
 
   const logout = () => {
+    localStorage.clear();
     setToken(null);
     setCurrentUser(null);
   }

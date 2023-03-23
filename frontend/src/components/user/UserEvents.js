@@ -1,4 +1,4 @@
-import React, { useState, useContext, Fragment } from 'react';
+import React, { useState, useContext, Fragment, useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import UserContext from './UserContext';
 import {
@@ -17,7 +17,7 @@ import NoUserEvents from './NoUserEvents';
 
 const UserEvents = () => {
   const { currentUser, removeUserEvent } = useContext(UserContext);
-  const [savedEvents, setSavedEvents] = useState(currentUser.events);
+  const [savedEvents, setSavedEvents] = useState([]);
   const bg1 = useColorModeValue('gray.200', 'gray.700');
   const textColor = useColorModeValue('black', 'white');
   const textColor2 = useColorModeValue('gray.400', 'gray.200');
@@ -27,9 +27,16 @@ const UserEvents = () => {
     '2px 6px 8px rgba(9, 17, 28, 0.9)'
   );
   
+  // add user's events to state if current user exists
+  useEffect(() => {
+    if (currentUser) {
+      setSavedEvents(currentUser.events);
+    }
+  }, [currentUser]);
+
   // redirect if not current user
   if (!currentUser) {
-    return <Navigate to={'/'} />;
+    return <Navigate to={'/login'} />;
   }
   
   const handleDeleteBtn = (username, eventId) => {
