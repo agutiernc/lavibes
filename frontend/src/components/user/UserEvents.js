@@ -3,6 +3,7 @@ import { Link, Navigate } from 'react-router-dom';
 import UserContext from './UserContext';
 import {
   Container,
+  Box,
   Flex,
   Stack,
   VStack,
@@ -11,7 +12,9 @@ import {
   Avatar,
   Text,
   Heading,
-  CloseButton
+  CloseButton,
+  Spinner,
+  AbsoluteCenter
 } from '@chakra-ui/react';
 import NoUserEvents from './NoUserEvents';
 
@@ -37,6 +40,22 @@ const UserEvents = () => {
   // redirect if not current user
   if (!currentUser) {
     return <Navigate to={'/login'} />;
+  }
+
+  if (savedEvents.length === 0 || currentUser.events.length === 0) {
+    return (
+      <Box position='relative' minHeight='100vh'>
+        <AbsoluteCenter p='4' axis='both'>
+          <Spinner
+            thickness='4px'
+            speed='0.65s'
+            emptyColor='gray.200'
+            color='pink.500'
+            size='xl'
+          />
+        </AbsoluteCenter>
+      </Box>
+    )
   }
   
   const handleDeleteBtn = (username, eventId) => {
