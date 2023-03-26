@@ -31,7 +31,7 @@ const NavBar = ({ logout }) => {
   // display when a user is logged in
   const loggedIn = () => {
     return (
-      <Box>
+      <Box zIndex={5}>
         <Menu>
           <MenuButton
             as={Button}
@@ -108,14 +108,25 @@ const NavBar = ({ logout }) => {
   // display when a user is logged out
   const loggedOut = () => {
     return (
-      <HStack spacing={3}>
+      <HStack
+        display={{ base: 'block', md: 'flex' }}
+        flexWrap={{ base: 'wrap', md: 'nowrap' }}
+        spacing={{ base: 2, md: 3 }}
+        alignItems="center"
+      >
         <Link
           _hover={{
             textDecoration: 'none',
           }}
           href="/login"
         >
-          <Button bg={'pink.600'} variant="solid" color={'white'}>
+          <Button
+            bg={'pink.600'}
+            variant="solid"
+            color={'white'}
+            _hover={{ bg: 'pink.500' }}
+            size={['sm', 'md']}
+          >
             Sign in
           </Button>
         </Link>
@@ -126,7 +137,13 @@ const NavBar = ({ logout }) => {
           }}
           href="/signup"
         >
-          <Button bg={'pink.600'} variant="solid" color={'white'}>
+          <Button
+            bg={'pink.600'}
+            variant="solid"
+            color={'white'}
+            _hover={{ bg: 'pink.500' }}
+            size={['sm', 'md']}
+          >
             Sign up
           </Button>
         </Link>
@@ -161,7 +178,7 @@ const NavBar = ({ logout }) => {
                     >
                       LA Vibes
                     </Text>
-                    <Icon as={HiMusicalNote} boxSize={[3, 4]} mt={3} style={{ filter:  "drop-shadow(0px 0px 0.8px white)" }} />
+                    <Icon as={HiMusicalNote} boxSize={[3, 4]} mt={[0.5, 3]} style={{ filter:  "drop-shadow(0px 0px 0.8px white)" }} />
                   </Flex>
                 </Box>
                 
@@ -171,7 +188,7 @@ const NavBar = ({ logout }) => {
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
-              <Button onClick={toggleColorMode} rounded={'full'} colorScheme="teal" size='sm' mt={1}>
+              <Button onClick={toggleColorMode} rounded={'full'} colorScheme="teal" size={['xs', 'sm']} mt={1}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
 

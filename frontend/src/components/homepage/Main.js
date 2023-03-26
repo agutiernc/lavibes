@@ -9,7 +9,7 @@ import {
   Box,
   Heading,
   Text,
-  Button
+  Button,
 } from '@chakra-ui/react';
 
 const Main = () => {
@@ -79,16 +79,30 @@ const Main = () => {
               <br />
               <Text
                 as={'span'}
-                color={'pink.600'}
-                fontSize={{ base: '2xl', sm: '3xl', lg: '5xl' }}
-                textShadow="0px 0px 10px white"
+                color={'pink.700'}
+                fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+                textShadow={{
+                  base: "0px 0px 3px white",
+                  md: "0px 0px 7px white",
+                  lg: "0px 0px 8px white",
+                }}
+                fontWeight={'bolder'}
               >
                 Free Summer Concerts
               </Text>
             </Heading>
-            <Text color={'white'}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua.
+            <Text 
+              color={'white'} 
+              fontSize={["sm", "md", "lg"]} 
+              fontWeight={'bold'} 
+              textShadow={{
+                base: "0px 0px 6px black",
+                md: "0px 0px 7px black",
+                lg: "0px 0px 8px black",
+                }}
+              >
+              Don't miss out on any of the free concerts happening in LA County this summer!
+              Sign up for an account to save your favorite events.
             </Text>
             <Stack
               spacing={{ base: 4, sm: 6 }}
@@ -112,11 +126,11 @@ const Main = () => {
               <Link to={'/signup'}>
                 <Button
                   boxShadow={'0px 0px 7px white'}
-                  _hover={{ bg: 'pink.300', color: 'white' }}
+                  _hover={{ bg: 'pink.500', color: 'white' }}
                   size={'lg'}
                   fontWeight={'normal'}
                   px={6}
-                  bg={'pink.500'}
+                  bg={'pink.600'}
                   color={'white'}
                 >
                   Sign Up
