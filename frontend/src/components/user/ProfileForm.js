@@ -106,6 +106,7 @@ const ProfileForm = () => {
           <FormControl id="email" isRequired>
             <FormLabel>Email address</FormLabel>
             <Input
+              focusBorderColor='pink.400'
               type="email"
               name="email"
               value={formData.email}
@@ -117,6 +118,7 @@ const ProfileForm = () => {
           <FormControl id="firstName" isRequired>
             <FormLabel>First Name</FormLabel>
             <Input
+              focusBorderColor='pink.400'
               type="text"
               name="firstName"
               value={formData.firstName}
@@ -128,6 +130,7 @@ const ProfileForm = () => {
           <FormControl id="lastName" isRequired>
             <FormLabel>Last Name</FormLabel>
             <Input
+              focusBorderColor='pink.400'
               type="text"
               name="lastName"
               value={formData.lastName}
@@ -139,10 +142,11 @@ const ProfileForm = () => {
           <FormControl id="password" isRequired>
             <FormLabel>Password</FormLabel>
             <Input
+              focusBorderColor='pink.400'
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Enter current password or new password"
+              placeholder="Enter current password"
               _placeholder={{ color: 'gray.500' }}
               type="password"
               mb={2}
@@ -152,6 +156,7 @@ const ProfileForm = () => {
           <FormControl id="password2" isRequired>
             <FormLabel>Confirm Password</FormLabel>
             <Input
+              focusBorderColor='pink.400'
               name='passwordVerify'
               value={formData.passwordVerify}
               onChange={handleChange}
@@ -176,12 +181,12 @@ const ProfileForm = () => {
             </Link>
 
             <Button
-              bg={'blue.400'}
+              bg={'pink.600'}
               type="submit"
               color={'white'}
               w="full"
               _hover={{
-                bg: 'blue.500',
+                bg: 'pink.500',
               }}>
               Submit
             </Button>

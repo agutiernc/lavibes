@@ -75,6 +75,7 @@ const LoginForm = ({ login }) => {
             <form onSubmit={handleSubmit}>
               <FormControl>
                 <Input
+                  focusBorderColor='pink.400'
                   type="text"
                   placeholder='Enter Username'
                   name="username"
@@ -87,6 +88,7 @@ const LoginForm = ({ login }) => {
 
               <FormControl>
                 <Input
+                  focusBorderColor='pink.400'
                   type="password"
                   placeholder='Enter Password'
                   name="password"

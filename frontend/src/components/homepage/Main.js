@@ -10,6 +10,8 @@ import {
   Heading,
   Text,
   Button,
+  Wrap,
+  WrapItem
 } from '@chakra-ui/react';
 
 const Main = () => {
@@ -91,6 +93,7 @@ const Main = () => {
                 Free Summer Concerts
               </Text>
             </Heading>
+            <Wrap>
             <Text 
               color={'white'} 
               fontSize={["sm", "md", "lg"]} 
@@ -101,9 +104,10 @@ const Main = () => {
                 lg: "0px 0px 8px black",
                 }}
               >
-              Don't miss out on any of the free concerts happening in LA County this summer!
-              Sign up for an account to save your favorite events.
+                Don't miss out on any of the free concerts happening in LA County this summer!
+                Sign up for an account to save your favorite events. 
             </Text>
+            </Wrap>
             <Stack
               spacing={{ base: 4, sm: 6 }}
               direction={{ base: 'column', sm: 'row' }}

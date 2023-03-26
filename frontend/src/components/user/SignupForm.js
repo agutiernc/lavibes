@@ -66,6 +66,7 @@ const SignupForm = ({ signup }) => {
             <form onSubmit={handleSubmit} mx='auto'>
               <FormControl isRequired>
                 <Input
+                  focusBorderColor='pink.400'
                   type="text"
                   name="username"
                   placeholder="Username"
@@ -76,6 +77,7 @@ const SignupForm = ({ signup }) => {
               </FormControl>
               <FormControl isRequired>
                 <Input
+                  focusBorderColor='pink.400'
                   type="password"
                   name="password"
                   placeholder="Password"
@@ -86,6 +88,7 @@ const SignupForm = ({ signup }) => {
               </FormControl>
               <FormControl isRequired>
                 <Input
+                  focusBorderColor='pink.400'
                   type="email"
                   name="email"
                   placeholder="Email"
@@ -96,6 +99,7 @@ const SignupForm = ({ signup }) => {
               </FormControl>
               <FormControl isRequired>
                 <Input
+                  focusBorderColor='pink.400'
                   type="text"
                   name="firstName"
                   placeholder="First Name"
@@ -106,6 +110,7 @@ const SignupForm = ({ signup }) => {
               </FormControl>
               <FormControl isRequired>
                 <Input
+                  focusBorderColor='pink.400'
                   type="text"
                   name="lastName"
                   placeholder="Last Name"
