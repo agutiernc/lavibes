@@ -3,8 +3,7 @@ import { useParams } from 'react-router-dom';
 import { eventDate, getTime, getAddress, addressToMap, randomImgURL } from '../../utils/utils';
 import UserContext from '../user/UserContext';
 import ConcertsApi from '../../api/api';
-import { FaPhoneAlt, FaRegCalendarAlt, FaRegBuilding, FaMapMarkedAlt } from 'react-icons/fa'
-import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { FaPhoneAlt, FaRegCalendarAlt, FaRegBuilding, FaMapMarkedAlt, FaExternalLinkAlt } from 'react-icons/fa'
 import {
   Box,
   VStack,
@@ -19,18 +18,22 @@ import {
   Image,
   Link,
   AbsoluteCenter,
-  Spinner
+  Spinner,
+  useColorModeValue
 } from '@chakra-ui/react';
 
 
 const Feature = ({ heading, icon, text1, text2 }) => {
+  const textColor = useColorModeValue('black', 'white');
+  const headingColor = useColorModeValue('pink.700', 'pink.400');
+
   return (
-    <GridItem textAlign={'center'} color={'pink.700'}>
-      <chakra.h3 fontSize="xl" fontWeight="600">
-        <Icon as={icon} color='pink.600' /> {heading}
+    <GridItem textAlign={'center'}>
+      <chakra.h3 fontSize="xl" fontWeight="600" color={headingColor}>
+        <Icon as={icon} color={headingColor} /> {heading}
       </chakra.h3>
 
-      <VStack fontSize={'14px'} color={'black'}>
+      <VStack fontSize={'14px'} color={textColor}>
         <Box>{text1}</Box>
         <Box>{text2}</Box>
       </VStack>
@@ -40,6 +43,7 @@ const Feature = ({ heading, icon, text1, text2 }) => {
 };
 
 const EventsDetails = () => {
+  const externalLinkColor = useColorModeValue('pink.700', 'pink.400')
   const { id } = useParams();
   const { hasSavedEvent, saveUserEvent, currentUser, removeUserEvent } = useContext(UserContext);
   const [event, setEvent] = useState(null);
@@ -184,7 +188,7 @@ const EventsDetails = () => {
           text1={eventData.location}
           text2={
             <Link href={addressMap} isExternal>
-              {eventData.address} <ExternalLinkIcon mx='2px' />
+              {eventData.address} <Icon as={FaExternalLinkAlt} mx='2px' color={externalLinkColor} boxSize={4} />
             </Link>
           }
         />

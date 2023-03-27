@@ -4,7 +4,7 @@ import { decodeToken } from 'react-jwt';
 import UserContext from './components/user/UserContext';
 import useLocalStorage from './hooks/useLocalStorage';
 import ConcertsApi from './api/api';
-import { Container, Spinner, AbsoluteCenter, Box } from '@chakra-ui/react';
+import { Container, Spinner, AbsoluteCenter, Box, useColorMode } from '@chakra-ui/react';
 
 import NavBar from "./routes-nav/NavBar";
 import Footer from "./routes-nav/Footer"
@@ -18,6 +18,7 @@ const App = () => {
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ msg: '', type: ''});
+  const { colorMode, toggleColorMode } = useColorMode();
 
   // load user info
   useEffect(() => {
@@ -125,10 +126,10 @@ const App = () => {
   return (
     <Router>
       <UserContext.Provider value={{ currentUser, setCurrentUser, hasSavedEvent, saveUserEvent, removeUserEvent, message, setMessage }}>
-        <NavBar logout={logout} />
+        <NavBar logout={logout} colorMode={colorMode} toggleColorMode={toggleColorMode} />
 
-        <Container backgroundColor="#fae6f1"  maxW="100%" height="auto">
-          <Container maxW={'90%'} backgroundColor="#fff" minHeight={'100%'}>
+        <Container maxW="100%" height="auto" bg={colorMode === "light" ? "#fae6f1" : "gray.900"}>
+          <Container maxW={'90%'} minHeight={'100%'} bg={colorMode === "light" ? "#fff" : "gray.800"}>
             <ComponentRoutes signup={signup} login={login} />
           </Container>
         </Container>

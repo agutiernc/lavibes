@@ -17,16 +17,14 @@ import {
   useColorModeValue,
   Stack,
   HStack,
-  useColorMode,
   Center,
   Icon,
   Link,
   Text
 } from '@chakra-ui/react';
 
-const NavBar = ({ logout }) => {
+const NavBar = ({ logout, colorMode, toggleColorMode }) => {
   const { currentUser } = useContext(UserContext);
-  const { colorMode, toggleColorMode } = useColorMode();
 
   // display when a user is logged in
   const loggedIn = () => {
