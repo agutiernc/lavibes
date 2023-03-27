@@ -57,9 +57,8 @@ const LoginForm = ({ login }) => {
   }
 
   return (
-    <Flex align={'center'} justify={'center'} mt={3}>
-
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+    <Flex justify={'center'} height={"100vh"} pt={33}>
+      <Stack spacing={6} mx={'auto'} minHeight="calc(100vh - 60px)" px={6}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} color='#048FC7'>Sign In</Heading>
           <Notify message={message} />
@@ -103,10 +102,10 @@ const LoginForm = ({ login }) => {
               <Stack spacing={10}>
                 <Button
                   type="submit"
-                  bg={'blue.400'}
+                  bg={'pink.600'}
                   color={'white'}
                   _hover={{
-                    bg: 'blue.500',
+                    bg: 'pink.500',
                   }}
                 >
                   Sign in
@@ -118,7 +117,7 @@ const LoginForm = ({ login }) => {
           <Box mt={3} fontSize={'14px'} textAlign='center'>
             Don't have an account? 
             <NavLink to="/signup">
-              <Text color='#048FC7' fontWeight={'bold'}>Sign up here!</Text>
+              <Text color='#cf5f9a' fontWeight={'bold'}>Sign up here!</Text>
             </NavLink>
           </Box>
         </Box>

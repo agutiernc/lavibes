@@ -10,8 +10,7 @@ import {
   Heading,
   Text,
   Button,
-  Wrap,
-  WrapItem
+  Wrap
 } from '@chakra-ui/react';
 
 const Main = () => {
@@ -41,6 +40,7 @@ const Main = () => {
       width="100vw"
       height="100vh"
       boxShadow={"inset 0 0 0 1000px rgba(0, 0, 0, 0.2)"}
+      mb={{ base: '3rem', md: '6rem' }} 
     >
       <Container
         maxW={'7xl'}

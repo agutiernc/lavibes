@@ -7,6 +7,7 @@ import ConcertsApi from './api/api';
 import { Container, Spinner, AbsoluteCenter, Box } from '@chakra-ui/react';
 
 import NavBar from "./routes-nav/NavBar";
+import Footer from "./routes-nav/Footer"
 import ComponentRoutes from "./routes-nav/ComponentRoutes";
 
 export const TOKEN_STORAGE_ID = "concerts-token";
@@ -126,9 +127,13 @@ const App = () => {
       <UserContext.Provider value={{ currentUser, setCurrentUser, hasSavedEvent, saveUserEvent, removeUserEvent, message, setMessage }}>
         <NavBar logout={logout} />
 
-        <Container maxW={'90%'} mt={0}>
-          <ComponentRoutes signup={signup} login={login} />
+        <Container backgroundColor="#fae6f1"  maxW="100%" height="auto">
+          <Container maxW={'90%'} backgroundColor="#fff" minHeight={'100%'}>
+            <ComponentRoutes signup={signup} login={login} />
+          </Container>
         </Container>
+
+        <Footer />
       </UserContext.Provider>
     </Router>
   )

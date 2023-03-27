@@ -25,9 +25,9 @@ import {
 
 const Feature = ({ heading, icon, text1, text2 }) => {
   return (
-    <GridItem textAlign={'center'}>
+    <GridItem textAlign={'center'} color={'pink.700'}>
       <chakra.h3 fontSize="xl" fontWeight="600">
-        {icon} {heading}
+        <Icon as={icon} color={'pink.500'} /> {heading}
       </chakra.h3>
 
       <VStack fontSize={'14px'}>
@@ -125,7 +125,7 @@ const EventsDetails = () => {
   };
   
   return (
-    <Box as={Container} maxW="7xl" mt={20} p={4}>
+    <Box as={Container} maxW="7xl" pt={10} px={4} minH={'100vh'}>
       <Grid
         templateColumns={{
           base: 'repeat(1, 1fr)',
@@ -133,6 +133,7 @@ const EventsDetails = () => {
           md: 'repeat(2, 1fr)',
         }}
         gap={4}
+        mt={19}
       >
         <GridItem colSpan={1}>
           <VStack alignItems="center" spacing="20px" mt={5}>
@@ -141,7 +142,9 @@ const EventsDetails = () => {
             </chakra.h2>
 
               <Button 
-                colorScheme="blue" 
+                bg={"pink.600"}
+                color={'white'}
+                _hover={{ bg: 'pink.500' }}
                 size="md"
                 type="button"
                 onClick={handleSaveBtn}
@@ -159,7 +162,7 @@ const EventsDetails = () => {
           </Flex>
         </GridItem>
       </Grid>
-      <Divider mt={12} mb={12} />
+      <Divider py={5} />
       <Grid
         templateColumns={{
           base: 'repeat(1, 1fr)',
@@ -167,16 +170,17 @@ const EventsDetails = () => {
           md: 'repeat(4, 1fr)',
         }}
         gap={{ base: '8', sm: '12', md: '16' }}
+        pt={10}
       >
         <Feature
           heading={'Date-Time'}
-          icon={<Icon as={GrCalendar} />}
+          icon={GrCalendar}
           text1={eventData.event_date}
           text2={`${eventData.start_time} - ${eventData.end_time}`}
         />
         <Feature
           heading={'Location'}
-          icon={<Icon as={GrMapLocation} />}
+          icon={GrMapLocation}
           text1={eventData.location}
           text2={
             <Link href={addressMap} isExternal>
@@ -186,13 +190,13 @@ const EventsDetails = () => {
         />
         <Feature
           heading={'Contact'}
-          icon={<Icon as={GrPhone} />}
+          icon={GrPhone}
           text1={eventData.contact}
           text2={eventData.contact_info}
         />
         <Feature
           heading={'Organization'}
-          icon={<Icon as={GrOrganization} />}
+          icon={GrOrganization}
           text1={`Dept. of ${eventData.organization}`}
           text2={`in District ${eventData.district}`}
         />

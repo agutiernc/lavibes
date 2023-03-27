@@ -55,8 +55,8 @@ const SignupForm = ({ signup }) => {
   }
 
   return (
-    <div>
-      <Heading as='h2' textAlign='center' my='10' color='#048FC7'>
+    <Box py={33} height={'100vh'}>
+      <Heading as='h2' textAlign='center' color='#048FC7' mb={10}>
         Register
       </Heading>
 
@@ -124,17 +124,17 @@ const SignupForm = ({ signup }) => {
                 type="submit"
                 mt='4'
                 width='full'
-                colorScheme='blue'
+                bg={'pink.600'}
+                color={'white'}
+                _hover={{ bg: 'pink.500' }}
               >
                 Sign Up
               </Button>
-
             </form>
           </Box>
         </Box>
       </Flex>
-      
-    </div>
+    </Box>
   )
 }
 

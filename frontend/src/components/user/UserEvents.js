@@ -39,7 +39,7 @@ const UserEvents = () => {
 
   // redirect if not current user
   if (!currentUser) {
-    return <Navigate to={'/login'} />;
+    return <Navigate to={'/'} />;
   }
 
   if (savedEvents.length === 0 || currentUser.events.length === 0) {
