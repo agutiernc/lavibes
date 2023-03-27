@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { eventDate, getTime, getAddress, addressToMap, randomImgURL } from '../../utils/utils';
 import UserContext from '../user/UserContext';
 import ConcertsApi from '../../api/api';
-import { GrMapLocation, GrCalendar, GrPhone, GrOrganization } from 'react-icons/gr';
+import { FaPhoneAlt, FaRegCalendarAlt, FaRegBuilding, FaMapMarkedAlt } from 'react-icons/fa'
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import {
   Box,
@@ -27,10 +27,10 @@ const Feature = ({ heading, icon, text1, text2 }) => {
   return (
     <GridItem textAlign={'center'} color={'pink.700'}>
       <chakra.h3 fontSize="xl" fontWeight="600">
-        <Icon as={icon} color={'pink.500'} /> {heading}
+        <Icon as={icon} color='pink.600' /> {heading}
       </chakra.h3>
 
-      <VStack fontSize={'14px'}>
+      <VStack fontSize={'14px'} color={'black'}>
         <Box>{text1}</Box>
         <Box>{text2}</Box>
       </VStack>
@@ -174,13 +174,13 @@ const EventsDetails = () => {
       >
         <Feature
           heading={'Date-Time'}
-          icon={GrCalendar}
+          icon={FaRegCalendarAlt}
           text1={eventData.event_date}
           text2={`${eventData.start_time} - ${eventData.end_time}`}
         />
         <Feature
           heading={'Location'}
-          icon={GrMapLocation}
+          icon={FaMapMarkedAlt}
           text1={eventData.location}
           text2={
             <Link href={addressMap} isExternal>
@@ -190,13 +190,13 @@ const EventsDetails = () => {
         />
         <Feature
           heading={'Contact'}
-          icon={GrPhone}
+          icon={FaPhoneAlt}
           text1={eventData.contact}
           text2={eventData.contact_info}
         />
         <Feature
           heading={'Organization'}
-          icon={GrOrganization}
+          icon={FaRegBuilding}
           text1={`Dept. of ${eventData.organization}`}
           text2={`in District ${eventData.district}`}
         />
