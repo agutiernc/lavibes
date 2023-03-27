@@ -13,7 +13,8 @@ import {
   Stack,
   Avatar,
   Center,
-  Icon
+  Icon,
+  Box
 } from '@chakra-ui/react';
 
 const ProfileForm = () => {
@@ -77,7 +78,8 @@ const ProfileForm = () => {
   }
 
   return (
-    <Flex align={'center'} justify={'center'}>
+    <Box height={'100vh'} pt={35}>
+    <Flex align={'center'} justify={'center'} maxWidth={'full'}>
       <Stack
         spacing={4}
         w={'sm'}
@@ -85,10 +87,14 @@ const ProfileForm = () => {
         rounded={'xl'}
         boxShadow={'lg'}
         p={6}
-        my={12}
       >
-        <Heading lineHeight={1.1} fontSize={{ base: '2xl', sm: '3xl' }} textAlign={'center'}>
-          User Profile Edit
+        <Heading
+          lineHeight={1}
+          fontSize={{ base: '2xl', sm: '3xl' }}
+          textAlign={'center'}
+          color={'pink.700'}
+        >
+         {currentUser.firstName}'s Settings
         </Heading>
 
         <FormControl id="userName">
@@ -97,6 +103,7 @@ const ProfileForm = () => {
               <Avatar
                 size={'lg'}
                 icon={<Icon as={FaUser} />}
+                bg={'pink.500'}
               />
             </Center>
           </Stack>
@@ -194,7 +201,7 @@ const ProfileForm = () => {
         </form>
         
       </Stack>
-    </Flex>
+    </Flex></Box>
   );
 }
 

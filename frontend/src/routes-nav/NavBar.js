@@ -31,7 +31,7 @@ const NavBar = ({ logout }) => {
   // display when a user is logged in
   const loggedIn = () => {
     return (
-      <Box zIndex={5}>
+      <Box>
         <Menu>
           <MenuButton
             as={Button}

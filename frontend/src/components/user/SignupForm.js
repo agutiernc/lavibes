@@ -56,12 +56,12 @@ const SignupForm = ({ signup }) => {
 
   return (
     <Box py={33} height={'100vh'}>
-      <Heading as='h2' textAlign='center' color='#048FC7' mb={10}>
+      <Heading as='h2' textAlign='center' color='pink.700' mb={10}>
         Register
       </Heading>
 
       <Flex maxWidth="full" align="center" justifyContent="center">
-        <Box p={5} maxWidth="sm" borderWidth={1} borderRadius={8} boxShadow="lg">
+        <Box p={8} maxWidth="sm" borderWidth={1} borderRadius={8} boxShadow="lg">
           <Box my={1}>
             <form onSubmit={handleSubmit} mx='auto'>
               <FormControl isRequired>

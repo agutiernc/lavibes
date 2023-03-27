@@ -58,9 +58,9 @@ const LoginForm = ({ login }) => {
 
   return (
     <Flex justify={'center'} height={"100vh"} pt={33}>
-      <Stack spacing={6} mx={'auto'} minHeight="calc(100vh - 60px)" px={6}>
+      <Stack spacing={6} >
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'} color='#048FC7'>Sign In</Heading>
+          <Heading fontSize={'4xl'} color='pink.700'>Sign In</Heading>
           <Notify message={message} />
         </Stack>
 

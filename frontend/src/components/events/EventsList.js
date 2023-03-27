@@ -114,21 +114,21 @@ const EventsList = () => {
       </Box>
     );
   }
-
+  // fix bottom container/box
   return (
-    <div className="embla">
+    <Box className="embla" mb={'400px'}>
       <button className="embla__prev" onClick={scrollPrev} type="button">
-        <Icon as={BsChevronDoubleLeft} boxSize={6} color={'blue'} />
+        <Icon as={BsChevronDoubleLeft} boxSize={6} color={'pink.700'} />
       </button>
       <button className="embla__next" onClick={scrollNext} type="button">
-        <Icon as={BsChevronDoubleRight} boxSize={6} color={'blue'} />
+        <Icon as={BsChevronDoubleRight} boxSize={6} color={'pink.700'} />
       </button>
 
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           <div className="embla__slide">
             <Center my={8}>
-              <Heading size={'xl'} className="embla__slide-heading" px={3}>
+              <Heading size={'xl'} className="embla__slide-heading" px={3} color={'pink.700'}>
                 June
               </Heading>
             </Center>
@@ -138,7 +138,7 @@ const EventsList = () => {
           </div>
           <div className="embla__slide">
             <Center my={8}>
-              <Heading size={'xl'} className="embla__slide-heading" px={3}>
+              <Heading size={'xl'} className="embla__slide-heading" px={3} color={'pink.700'}>
                 July
               </Heading>
             </Center>
@@ -148,7 +148,7 @@ const EventsList = () => {
           </div>
           <div className="embla__slide">
             <Center my={8}>
-              <Heading size={'xl'} className="embla__slide-heading" px={3}>
+              <Heading size={'xl'} className="embla__slide-heading" px={3} color={'pink.700'}>
                 August
               </Heading>
             </Center>
@@ -158,7 +158,7 @@ const EventsList = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Box>
   )
 };
 
