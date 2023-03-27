@@ -43,6 +43,7 @@ const NavBar = ({ logout }) => {
             <Avatar
               size={'sm'}
               icon={<Icon as={FaUser} />}
+              bg={'pink.500'}
             />
           </MenuButton>
 
@@ -188,8 +189,8 @@ const NavBar = ({ logout }) => {
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
-              <Button onClick={toggleColorMode} rounded={'full'} colorScheme="teal" size={['xs', 'sm']} mt={1}>
-                {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+              <Button onClick={toggleColorMode} borderRadius="50%" bg="pink.500" size={['xs', 'sm']} mt={1}>
+                {colorMode === 'light' ? <MoonIcon color={'white'} /> : <SunIcon color={'white'} />}
               </Button>
 
               {currentUser ? loggedIn() : loggedOut()}
