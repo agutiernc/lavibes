@@ -14,10 +14,13 @@ import {
   Avatar,
   Center,
   Icon,
-  Box
+  Box,
+  useColorModeValue
 } from '@chakra-ui/react';
 
 const ProfileForm = () => {
+  const bgColor = useColorModeValue('white', 'gray.900');
+  const placeHolderColors = useColorModeValue('gray.500', 'gray.400');
   const { currentUser, setCurrentUser } = useContext(UserContext);
   const initialValue = currentUser ? {
     password: '',
@@ -78,130 +81,137 @@ const ProfileForm = () => {
   }
 
   return (
-    <Box height={'100vh'} pt={35}>
-    <Flex align={'center'} justify={'center'} maxWidth={'full'}>
-      <Stack
-        spacing={4}
-        w={'sm'}
-        maxW={'md'}
-        rounded={'xl'}
-        boxShadow={'lg'}
-        p={6}
-      >
-        <Heading
-          lineHeight={1}
-          fontSize={{ base: '2xl', sm: '3xl' }}
-          textAlign={'center'}
-          color={'pink.700'}
+    <Box height={'90vh'} pt={35}>
+      <Flex align={'center'} justify={'center'} maxWidth={'full'}>
+        <Stack
+          spacing={4}
+          w={'sm'}
+          maxW={'md'}
+          borderRadius={8}
+          borderWidth={1} 
+          boxShadow={'lg'}
+          p={6}
+          bg={bgColor}
         >
-         {currentUser.firstName}'s Settings
-        </Heading>
+          <Heading
+            lineHeight={1}
+            fontSize={{ base: '2xl', sm: '3xl' }}
+            textAlign={'center'}
+            color={'pink.700'}
+          >
+            {currentUser.firstName}'s Settings
+          </Heading>
 
-        <FormControl id="userName">
-          <Stack spacing={6}>
-            <Center>
-              <Avatar
-                size={'lg'}
-                icon={<Icon as={FaUser} />}
-                bg={'pink.500'}
+          <FormControl id="userName">
+            <Stack spacing={6}>
+              <Center>
+                <Avatar
+                  size={'lg'}
+                  icon={<Icon as={FaUser} />}
+                  bg={'pink.500'}
+                />
+              </Center>
+            </Stack>
+          </FormControl>
+
+          <form onSubmit={handleSubmit}>
+            <FormControl id="email" isRequired>
+              <FormLabel>Email address</FormLabel>
+              <Input
+                focusBorderColor='pink.400'
+                borderWidth={'2px'}
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                mb={2}
               />
-            </Center>
-          </Stack>
-        </FormControl>
+            </FormControl>
 
-        <form onSubmit={handleSubmit}>
-          <FormControl id="email" isRequired>
-            <FormLabel>Email address</FormLabel>
-            <Input
-              focusBorderColor='pink.400'
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              mb={2}
-            />
-          </FormControl>
+            <FormControl id="firstName" isRequired>
+              <FormLabel>First Name</FormLabel>
+              <Input
+                focusBorderColor='pink.400'
+                borderWidth={'2px'}
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                mb={2}
+              />
+            </FormControl>
 
-          <FormControl id="firstName" isRequired>
-            <FormLabel>First Name</FormLabel>
-            <Input
-              focusBorderColor='pink.400'
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              mb={2}
-            />
-          </FormControl>
+            <FormControl id="lastName" isRequired>
+              <FormLabel>Last Name</FormLabel>
+              <Input
+                focusBorderColor='pink.400'
+                borderWidth={'2px'}
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                mb={2}
+              />
+            </FormControl>
 
-          <FormControl id="lastName" isRequired>
-            <FormLabel>Last Name</FormLabel>
-            <Input
-              focusBorderColor='pink.400'
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              mb={2}
-            />
-          </FormControl>
+            <FormControl id="password" isRequired>
+              <FormLabel>Password</FormLabel>
+              <Input
+                focusBorderColor='pink.400'
+                borderWidth={'2px'}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter current password"
+                _placeholder={{ color: placeHolderColors }}
+                type="password"
+                mb={2}
+              />
+            </FormControl>
 
-          <FormControl id="password" isRequired>
-            <FormLabel>Password</FormLabel>
-            <Input
-              focusBorderColor='pink.400'
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter current password"
-              _placeholder={{ color: 'gray.500' }}
-              type="password"
-              mb={2}
-            />
-          </FormControl>
+            <FormControl id="password2" isRequired>
+              <FormLabel>Confirm Password</FormLabel>
+              <Input
+                focusBorderColor='pink.400'
+                borderWidth={'2px'}
+                name='passwordVerify'
+                value={formData.passwordVerify}
+                onChange={handleChange}
+                placeholder="Confirm password"
+                _placeholder={{ color: placeHolderColors }}
+                type="password"
+                mb={4}
+              />
+            </FormControl>
 
-          <FormControl id="password2" isRequired>
-            <FormLabel>Confirm Password</FormLabel>
-            <Input
-              focusBorderColor='pink.400'
-              name='passwordVerify'
-              value={formData.passwordVerify}
-              onChange={handleChange}
-              placeholder="Confirm password"
-              _placeholder={{ color: 'gray.500' }}
-              type="password"
-              mb={4}
-            />
-          </FormControl>
+            <Stack spacing={6} direction={['column', 'row']}>
+              <Link to='/'>
+                <Button
+                  bg={'red.400'}
+                  color={'white'}
+                  w="full"
+                  _hover={{
+                    bg: 'red.500',
+                  }}>
+                  Cancel
+                </Button>
+              </Link>
 
-          <Stack spacing={6} direction={['column', 'row']}>
-            <Link to='/'>
               <Button
-                bg={'red.400'}
+                bg={'pink.600'}
+                type="submit"
                 color={'white'}
                 w="full"
                 _hover={{
-                  bg: 'red.500',
+                  bg: 'pink.500',
                 }}>
-                Cancel
+                Submit
               </Button>
-            </Link>
+            </Stack>
+          </form>
 
-            <Button
-              bg={'pink.600'}
-              type="submit"
-              color={'white'}
-              w="full"
-              _hover={{
-                bg: 'pink.500',
-              }}>
-              Submit
-            </Button>
-          </Stack>
-        </form>
-        
-      </Stack>
-    </Flex></Box>
+        </Stack>
+      </Flex></Box>
   );
 }
 

@@ -73,7 +73,7 @@ const UserEvents = () => {
   };
 
   return (
-    <Container maxW="3xl" p={{ base: 5, md: 10 }} minH={'100vh'}>
+    <Container maxW="3xl" p={{ base: 5, md: 10 }} minH={'90vh'}>
       <Heading textAlign={'center'} mb={10} color={'pink.700'}>Saved Events</Heading>
       <VStack
         bg={stackColor1}

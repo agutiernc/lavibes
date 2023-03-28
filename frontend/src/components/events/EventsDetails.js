@@ -129,7 +129,7 @@ const EventsDetails = () => {
   };
   
   return (
-    <Box as={Container} maxW="7xl" pt={10} px={4} minH={'100vh'}>
+    <Box as={Container} maxW="7xl" pt={10} px={4} minH={'90vh'}>
       <Grid
         templateColumns={{
           base: 'repeat(1, 1fr)',

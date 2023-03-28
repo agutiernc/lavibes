@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, NavLink } from "react-router-dom";
 import UserContext from "./UserContext";
 import {
   Heading,
@@ -7,10 +7,14 @@ import {
   Box,
   FormControl,
   Input,
-  Button
+  Button,
+  Text,
+  useColorModeValue
 } from "@chakra-ui/react";
 
 const SignupForm = ({ signup }) => {
+  const bgColor = useColorModeValue('white', 'gray.900');
+  const placeHolderColors = useColorModeValue('gray.500', 'gray.400');
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
   const initialState = {
@@ -55,21 +59,30 @@ const SignupForm = ({ signup }) => {
   }
 
   return (
-    <Box py={33} height={'100vh'}>
+    <Box py={33} height={'90vh'}>
       <Heading as='h2' textAlign='center' color='pink.700' mb={10}>
         Register
       </Heading>
 
       <Flex maxWidth="full" align="center" justifyContent="center">
-        <Box p={8} maxWidth="sm" borderWidth={1} borderRadius={8} boxShadow="lg">
+        <Box 
+          p={8} 
+          maxWidth="sm" 
+          borderWidth={1} 
+          borderRadius={8} 
+          boxShadow="lg"
+          bg={bgColor}
+        >
           <Box my={1}>
             <form onSubmit={handleSubmit} mx='auto'>
               <FormControl isRequired>
                 <Input
                   focusBorderColor='pink.400'
+                  borderWidth={'2px'}
                   type="text"
                   name="username"
-                  placeholder="Username"
+                  placeholder="Enter Username"
+                  _placeholder={{ color: placeHolderColors }}
                   value={formData.username}
                   onChange={handleChange}
                   mb="3"
@@ -78,9 +91,11 @@ const SignupForm = ({ signup }) => {
               <FormControl isRequired>
                 <Input
                   focusBorderColor='pink.400'
+                  borderWidth={'2px'}
                   type="password"
                   name="password"
-                  placeholder="Password"
+                  placeholder="Enter Password"
+                  _placeholder={{ color: placeHolderColors }}
                   value={formData.password}
                   onChange={handleChange}
                   mb="3"
@@ -89,9 +104,11 @@ const SignupForm = ({ signup }) => {
               <FormControl isRequired>
                 <Input
                   focusBorderColor='pink.400'
+                  borderWidth={'2px'}
                   type="email"
                   name="email"
                   placeholder="Email"
+                  _placeholder={{ color: placeHolderColors }}
                   value={formData.email}
                   onChange={handleChange}
                   mb="3"
@@ -100,9 +117,11 @@ const SignupForm = ({ signup }) => {
               <FormControl isRequired>
                 <Input
                   focusBorderColor='pink.400'
+                  borderWidth={'2px'}
                   type="text"
                   name="firstName"
                   placeholder="First Name"
+                  _placeholder={{ color: placeHolderColors }}
                   value={formData.firstName}
                   onChange={handleChange}
                   mb="3"
@@ -111,9 +130,11 @@ const SignupForm = ({ signup }) => {
               <FormControl isRequired>
                 <Input
                   focusBorderColor='pink.400'
+                  borderWidth={'2px'}
                   type="text"
                   name="lastName"
                   placeholder="Last Name"
+                  _placeholder={{ color: placeHolderColors }}
                   value={formData.lastName}
                   onChange={handleChange}
                   mb="3"
@@ -131,6 +152,13 @@ const SignupForm = ({ signup }) => {
                 Sign Up
               </Button>
             </form>
+          </Box>
+
+          <Box mt={3} fontSize={'14px'} textAlign='center'>
+            Already have an account? 
+            <NavLink to="/login">
+              <Text color='#cf5f9a' fontWeight={'bold'}>Log in here!</Text>
+            </NavLink>
           </Box>
         </Box>
       </Flex>

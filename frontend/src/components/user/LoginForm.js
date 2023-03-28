@@ -17,7 +17,8 @@ import Notify from '../common/Notify';
 
 const LoginForm = ({ login }) => {
   const navigate = useNavigate();
-  const bgColor = useColorModeValue('white', 'gray.700')
+  const bgColor = useColorModeValue('white', 'gray.900');
+  const placeHolderColors = useColorModeValue('gray.500', 'gray.400');
   const { currentUser, message, setMessage } = useContext(UserContext);
   const initialValue = {
     username: '',
@@ -57,15 +58,16 @@ const LoginForm = ({ login }) => {
   }
 
   return (
-    <Flex justify={'center'} height={"100vh"} pt={33}>
+    <Flex justify={'center'} height={"90vh"} pt={33}>
       <Stack spacing={6} >
-        <Stack align={'center'}>
+        <Stack align={'center'} my={5}>
           <Heading fontSize={'4xl'} color='pink.700'>Sign In</Heading>
           <Notify message={message} />
         </Stack>
 
         <Box
-          rounded={'lg'}
+          borderWidth={1} 
+          borderRadius={8} 
           bg={bgColor}
           boxShadow={'lg'}
           p={8}
@@ -75,8 +77,10 @@ const LoginForm = ({ login }) => {
               <FormControl>
                 <Input
                   focusBorderColor='pink.400'
+                  borderWidth={'2px'}
                   type="text"
                   placeholder='Enter Username'
+                  _placeholder={{ color: placeHolderColors }}
                   name="username"
                   value={formData.username}
                   onChange={handleChange}
@@ -88,8 +92,10 @@ const LoginForm = ({ login }) => {
               <FormControl>
                 <Input
                   focusBorderColor='pink.400'
+                  borderWidth={'2px'}
                   type="password"
                   placeholder='Enter Password'
+                  _placeholder={{ color: placeHolderColors }}
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
