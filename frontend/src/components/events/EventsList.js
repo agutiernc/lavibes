@@ -116,12 +116,13 @@ const EventsList = () => {
   }
   // fix bottom container/box
   return (
-    <Box className="embla" mb={'400px'}>
+    <Box pb={25}>
+    <Box className="embla"  height={'auto'}>
       <button className="embla__prev" onClick={scrollPrev} type="button">
-        <Icon as={BsChevronDoubleLeft} boxSize={6} color={'pink.700'} />
+        <Icon as={BsChevronDoubleLeft} boxSize={7} color={'pink.700'} />
       </button>
       <button className="embla__next" onClick={scrollNext} type="button">
-        <Icon as={BsChevronDoubleRight} boxSize={6} color={'pink.700'} />
+        <Icon as={BsChevronDoubleRight} boxSize={7} color={'pink.700'} />
       </button>
 
       <div className="embla__viewport" ref={emblaRef}>
@@ -132,7 +133,7 @@ const EventsList = () => {
                 June
               </Heading>
             </Center>
-            <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='15px'>
+            <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='30px' pb={70}>
               {eventsBox('Jun')}
             </SimpleGrid>
           </div>
@@ -142,7 +143,7 @@ const EventsList = () => {
                 July
               </Heading>
             </Center>
-            <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='15px'>
+            <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='30px' pb={70}>
               {eventsBox('Jul')}
             </SimpleGrid>
           </div>
@@ -152,13 +153,13 @@ const EventsList = () => {
                 August
               </Heading>
             </Center>
-            <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='15px'>
+            <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='30px' pb={70}>
               {eventsBox('Aug')}
             </SimpleGrid>
           </div>
         </div>
       </div>
-    </Box>
+    </Box>    </Box>
   )
 };
 
