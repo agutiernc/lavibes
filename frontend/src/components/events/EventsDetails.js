@@ -141,7 +141,7 @@ const EventsDetails = () => {
       >
         <GridItem colSpan={1}>
           <VStack alignItems="center" spacing="20px" mt={5}>
-            <chakra.h2 fontSize="3xl" fontWeight="700" mt={'20px'}>
+            <chakra.h2 fontSize="3xl" fontWeight="700" mt={'20px'} color={'pink.700'}>
               {event.Performing_Artist}
             </chakra.h2>
 

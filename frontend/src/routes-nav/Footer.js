@@ -31,7 +31,7 @@ const Footer = () => {
           justify={{ base: 'center', md: 'center' }}
           align={{ base: 'center', md: 'center', lg: 'center' }}
         >
-          <Flex justifyContent="space-between" alignItems="center" fontSize={'0.9rem'}>
+          <Flex justifyContent="space-between" alignItems="center" fontSize={['0.7rem', '0.9rem']}>
             <Text textAlign="center" mr={2}>
               By Alfonso Gutierrez
             </Text>
