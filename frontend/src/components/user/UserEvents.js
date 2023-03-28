@@ -1,12 +1,15 @@
 import React, { useState, useContext, Fragment, useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import UserContext from './UserContext';
+import NoUserEvents from './NoUserEvents';
+import { FaRegArrowAltCircleLeft } from 'react-icons/fa';
 import {
   Container,
   Box,
   Flex,
   Stack,
   VStack,
+  HStack,
   Divider,
   useColorModeValue,
   Avatar,
@@ -14,9 +17,9 @@ import {
   Heading,
   CloseButton,
   Spinner,
-  AbsoluteCenter
+  AbsoluteCenter,
+  Icon
 } from '@chakra-ui/react';
-import NoUserEvents from './NoUserEvents';
 
 const UserEvents = () => {
   const { currentUser, removeUserEvent } = useContext(UserContext);
@@ -73,7 +76,7 @@ const UserEvents = () => {
   };
 
   return (
-    <Container maxW="3xl" p={{ base: 5, md: 10 }} minH={'90vh'}>
+    <Container maxW="3xl" p={{ base: 15, md: 20 }} minH={'90vh'}>
       <Heading textAlign={'center'} mb={10} color={'pink.700'}>Saved Events</Heading>
       <VStack
         bg={stackColor1}
@@ -127,6 +130,14 @@ const UserEvents = () => {
           </Fragment>
         ))}
       </VStack>
+
+      <Link to="/events">
+        <HStack alignItems={'center'} justifyContent={'center'} mt={[5, 16]} pb={10} mb={5}>
+
+          <Icon as={FaRegArrowAltCircleLeft} color={'pink.700'} boxSize={5} />
+          <Text textAlign={'center'} fontSize={['1rem', '1.2rem']} color={'pink.700'}>Back To Events</Text>
+        </HStack>
+      </Link>
     </Container>
   );
 };

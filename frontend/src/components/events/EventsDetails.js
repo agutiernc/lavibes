@@ -3,7 +3,13 @@ import { useParams } from 'react-router-dom';
 import { eventDate, getTime, getAddress, addressToMap, randomImgURL } from '../../utils/utils';
 import UserContext from '../user/UserContext';
 import ConcertsApi from '../../api/api';
-import { FaPhoneAlt, FaRegCalendarAlt, FaRegBuilding, FaMapMarkedAlt, FaExternalLinkAlt } from 'react-icons/fa'
+import { FaPhoneAlt,
+  FaRegCalendarAlt,
+  FaRegBuilding,
+  FaMapMarkedAlt,
+  FaExternalLinkAlt,
+  FaRegArrowAltCircleLeft
+} from 'react-icons/fa'
 import {
   Box,
   VStack,
@@ -19,7 +25,9 @@ import {
   Link,
   AbsoluteCenter,
   Spinner,
-  useColorModeValue
+  useColorModeValue,
+  Text,
+  HStack
 } from '@chakra-ui/react';
 
 
@@ -129,7 +137,7 @@ const EventsDetails = () => {
   };
   
   return (
-    <Box as={Container} maxW="7xl" pt={10} px={4} minH={'90vh'}>
+    <Box as={Container} maxW="7xl" pt={[1, 20]} px={4} minH={'90vh'} mb={5}>
       <Grid
         templateColumns={{
           base: 'repeat(1, 1fr)',
@@ -205,6 +213,14 @@ const EventsDetails = () => {
           text2={`in District ${eventData.district}`}
         />
       </Grid>
+        
+      <Link href="/events">
+        <HStack alignItems={'center'} justifyContent={'center'} mt={14} pb={[24, 5]}>
+
+          <Icon as={FaRegArrowAltCircleLeft} color={'pink.700'} boxSize={5} />
+          <Text textAlign={'center'} fontSize={'1.2rem'} color={'pink.700'}>Back To Events</Text>
+        </HStack>
+      </Link>
     </Box>
   );
 };

@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import ConcertsApi from '../../api/api';
 import UserContext from './UserContext';
-import { FaUser } from 'react-icons/fa';
+import { FaUser, FaRegArrowAltCircleLeft } from 'react-icons/fa';
 import {
   Button,
   Flex,
@@ -11,11 +11,13 @@ import {
   Heading,
   Input,
   Stack,
+  HStack,
   Avatar,
   Center,
   Icon,
   Box,
-  useColorModeValue
+  useColorModeValue,
+  Text
 } from '@chakra-ui/react';
 
 const ProfileForm = () => {
@@ -81,7 +83,7 @@ const ProfileForm = () => {
   }
 
   return (
-    <Box height={'90vh'} pt={35}>
+    <Box height={['100vh', '90vh']} pt={35} mb={[88, 5]} pb={[18, 5, 20]}>
       <Flex align={'center'} justify={'center'} maxWidth={'full'}>
         <Stack
           spacing={4}
@@ -90,7 +92,7 @@ const ProfileForm = () => {
           borderRadius={8}
           borderWidth={1} 
           boxShadow={'lg'}
-          p={6}
+          p={7}
           bg={bgColor}
         >
           <Heading
@@ -211,7 +213,20 @@ const ProfileForm = () => {
           </form>
 
         </Stack>
-      </Flex></Box>
+      </Flex>
+
+      <Link to="/events">
+        <HStack 
+          alignItems={'center'} 
+          justifyContent={'center'}
+          mt={[4, 10]}
+          pb={[10, 5]} mb={[10, 10]}
+        >
+          <Icon as={FaRegArrowAltCircleLeft} color={'pink.700'} boxSize={5} />
+          <Text textAlign={'center'} fontSize={['1rem', '1.2rem']} color={'pink.700'}>Back To Events</Text>
+        </HStack>
+      </Link>
+    </Box>
   );
 }
 
