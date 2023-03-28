@@ -107,7 +107,7 @@ const SignupForm = ({ signup }) => {
                   borderWidth={'2px'}
                   type="email"
                   name="email"
-                  placeholder="Email"
+                  placeholder="Enter Email"
                   _placeholder={{ color: placeHolderColors }}
                   value={formData.email}
                   onChange={handleChange}
@@ -120,7 +120,7 @@ const SignupForm = ({ signup }) => {
                   borderWidth={'2px'}
                   type="text"
                   name="firstName"
-                  placeholder="First Name"
+                  placeholder="Enter First Name"
                   _placeholder={{ color: placeHolderColors }}
                   value={formData.firstName}
                   onChange={handleChange}
@@ -133,7 +133,7 @@ const SignupForm = ({ signup }) => {
                   borderWidth={'2px'}
                   type="text"
                   name="lastName"
-                  placeholder="Last Name"
+                  placeholder="Enter Last Name"
                   _placeholder={{ color: placeHolderColors }}
                   value={formData.lastName}
                   onChange={handleChange}
