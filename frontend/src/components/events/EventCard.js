@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 
 const EventCard = ({ event }) => {
+  const textColor = useColorModeValue('gray.700', 'gray.400');
   const city = event.Location.substring(event.Location.indexOf("\n") + 1, event.Location.indexOf(", CA"));
   const imgURL = useMemo(() => {
     return randomImgURL();
@@ -52,7 +53,7 @@ const EventCard = ({ event }) => {
               {event.Performing_Artist}
             </Heading>
 
-            <Text color={'gray.500'} fontSize={12} align={'center'}>
+            <Text color={textColor} fontSize={12} align={'center'}>
               {event.Concert_Location} <br /> in {city}
             </Text>
           </Stack>
@@ -60,7 +61,7 @@ const EventCard = ({ event }) => {
           <Stack mt={0} direction={'row'} spacing={2} pl={2} pt={3}>
             <Stack direction={'column'} spacing={1}>
               <Text fontWeight={600} fontSize={'md'}>{eventDate(event.Concert_Date)}</Text>
-              <Text color={'gray.500'} fontSize={12}>
+              <Text color={textColor} fontSize={12}>
                 {getTime(event.Start_Time)} - {getTime(event.End_Time)}
               </Text>
             </Stack>
