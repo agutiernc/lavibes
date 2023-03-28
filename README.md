@@ -16,11 +16,11 @@ Upon launching the app, users are presented with a main page featuring a compreh
 
 Once registered, users are directed to a user-friendly events listings page where they can browse events categorized by summer months (June, July, August). By clicking the left or right arrow, they can easily navigate between months.
 
-Clicking on an event card brings users to the event's details page, where they have the option to save the event to their personal list of saved events. All saved events can be viewed and edited from the user's saved events page.
+Clicking on an event card brings users to the event's details page, where they have the option to save the event to their personal list of saved events. All saved events can be viewed and edited from the user's saved events page. The evennt's details page also has a link, for the address, that will open up the location in Google Maps.
 
-In addition, users can update their user information as needed.
+In addition, users can update their user information as needed in their settings page.
 
-For added convenience, the app offers a dark mode feature for those who prefer a darker interface.
+For added convenience, the app offers a dark mode feature for those who prefer a darker interface and the app is responsive to suit any device.
 
 Overall, the app provides a seamless and intuitive experience for users to discover and save events according to their interests.
 
