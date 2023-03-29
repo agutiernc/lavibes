@@ -9,9 +9,9 @@ const NoUserEvents = () => {
     <Box textAlign="center" py={10} px={6}>
       <Center>
         <HStack>
-          <Icon as={GiPalmTree} boxSize={'50px'} color={'blue.500'} />
-          <Icon as={FaRegSadTear} boxSize={'50px'} color={'blue.500'} />
-          <Icon as={FaMusic} boxSize={'50px'} color={'blue.500'} />
+          <Icon as={GiPalmTree} boxSize={'50px'} color={'pink.500'} />
+          <Icon as={FaRegSadTear} boxSize={'50px'} color={'pink.500'} />
+          <Icon as={FaMusic} boxSize={'50px'} color={'pink.500'} />
         </HStack>
       </Center>
 

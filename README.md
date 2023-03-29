@@ -1,7 +1,7 @@
 # Capstone Two - Free Summer Concerts App
 
 ## Project Title
-LA Vibes -
+LA Vibes @ http://lavibes.surge.sh
 
 ## Project API
 The API utilized in the app is sourced from Los Angeles County Arts and provided in CSV format. To make it compatible with the app's front-end, the data was converted to JSON. Since the original data cannot be fetched directly from the LA County website, the JSON file was placed in the back-end and can now be accessed by the front-end for displaying data. The API is solely used for data display purposes.

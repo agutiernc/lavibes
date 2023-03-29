@@ -26,7 +26,7 @@ const UserEvents = () => {
   const [savedEvents, setSavedEvents] = useState([]);
   const bg1 = useColorModeValue('gray.200', 'gray.700');
   const textColor = useColorModeValue('black', 'white');
-  const textColor2 = useColorModeValue('gray.400', 'gray.200');
+  const textColor2 = useColorModeValue('gray.600', 'gray.200');
   const stackColor1 = useColorModeValue('gray.100', 'gray.800');
   const stackColor2 = useColorModeValue(
     '2px 6px 8px rgba(160, 174, 192, 0.6)',
@@ -45,7 +45,7 @@ const UserEvents = () => {
     return <Navigate to={'/'} />;
   }
 
-  if (savedEvents.length === 0 || currentUser.events.length === 0) {
+  if (!currentUser) {
     return (
       <Box position='relative' minHeight='100vh'>
         <AbsoluteCenter p='4' axis='both'>
