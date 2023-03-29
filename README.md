@@ -12,11 +12,11 @@ https://data.lacounty.gov/datasets/lacounty::arts-free-concerts-in-la-county-pub
 LA Vibes is a comprehensive full-stack app that allows users to easily access information on all free summer concerts happening in Los Angeles County, CA. With its user-friendly interface, the app provides a complete listing of events, including detailed information on each concert.
 
 ## User Flow
-Upon launching the app, users are presented with a main page featuring a comprehensive list of events. While anyone can view the events, registering for a user account is required to save events.
+Upon launching the app, users are presented with a main page that displays information about the app's features and functionalities. The page includes buttons that allow users to navigate to different sections of the app. While anyone can view the events, registering for a user account is required to save events.
 
 Once registered, users are directed to a user-friendly events listings page where they can browse events categorized by summer months (June, July, August). By clicking the left or right arrow, they can easily navigate between months.
 
-Clicking on an event card brings users to the event's details page, where they have the option to save the event to their personal list of saved events. All saved events can be viewed and edited from the user's saved events page. The evennt's details page also has a link, for the address, that will open up the location in Google Maps.
+Clicking on an event card brings users to the event's details page, where they have the option to save the event to their personal list of saved events. All saved events can be viewed and edited from the user's saved events page. The event's details page also has a link, for the address, that will open up the location in Google Maps.
 
 In addition, users can update their user information as needed in their settings page.
 
