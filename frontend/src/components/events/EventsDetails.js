@@ -152,7 +152,7 @@ const EventsDetails = () => {
             <chakra.h2 fontSize="3xl" fontWeight="700" mt={'20px'} color={'pink.700'}>
               {event.Performing_Artist}
             </chakra.h2>
-
+            { currentUser ? (
               <Button 
                 bg={"pink.600"}
                 color={'white'}
@@ -163,6 +163,21 @@ const EventsDetails = () => {
               >
                 {saved ? 'Remove from Favorites' : 'Add to Favorites'}
               </Button>
+            ) : (
+              <Box>
+                <Text>
+                  <Link href="/login" fontWeight="bold" color="pink.700">
+                    Login
+                  </Link> or {" "}
+                  <Link href="/signup" fontWeight="bold" color="pink.700">
+                    Sign up
+                    </Link> for an account to save this event.
+                </Text>
+              </Box>
+            )
+
+            }
+              
 
           </VStack>
         </GridItem>
