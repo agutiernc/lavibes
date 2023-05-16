@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { eventDate, getTime, getAddress, addressToMap, randomImgURL } from '../../utils/utils';
 import UserContext from '../user/UserContext';
+import LoadingSpinner from '../common/LoadingSpinner';
+import Feature from './Feature';
 import ConcertsApi from '../../api/api';
 import { FaPhoneAlt,
   FaRegCalendarAlt,
@@ -23,32 +25,11 @@ import {
   Icon,
   Image,
   Link,
-  AbsoluteCenter,
-  Spinner,
   useColorModeValue,
   Text,
   HStack
 } from '@chakra-ui/react';
 
-
-const Feature = ({ heading, icon, text1, text2 }) => {
-  const textColor = useColorModeValue('black', 'white');
-  const headingColor = useColorModeValue('pink.700', 'pink.400');
-
-  return (
-    <GridItem textAlign={'center'}>
-      <chakra.h3 fontSize="xl" fontWeight="600" color={headingColor}>
-        <Icon as={icon} color={headingColor} /> {heading}
-      </chakra.h3>
-
-      <VStack fontSize={'14px'} color={textColor}>
-        <Box>{text1}</Box>
-        <Box>{text2}</Box>
-      </VStack>
-
-    </GridItem>
-  );
-};
 
 const EventsDetails = () => {
   const externalLinkColor = useColorModeValue('pink.700', 'pink.400')
@@ -122,17 +103,7 @@ const EventsDetails = () => {
   // show spinner if components are still loading
   if (!event) {
     return (
-      <Box position='relative' minHeight='100vh'>
-        <AbsoluteCenter p='4' axis='both'>
-          <Spinner
-            thickness='4px'
-            speed='0.65s'
-            emptyColor='gray.200'
-            color='pink.500'
-            size='xl'
-          />
-        </AbsoluteCenter>
-      </Box>
+      <LoadingSpinner />
     );
   };
   
@@ -152,6 +123,7 @@ const EventsDetails = () => {
             <chakra.h2 fontSize="3xl" fontWeight="700" mt={'20px'} color={'pink.700'}>
               {event.Performing_Artist}
             </chakra.h2>
+
             { currentUser ? (
               <Button 
                 bg={"pink.600"}
@@ -163,7 +135,7 @@ const EventsDetails = () => {
               >
                 {saved ? 'Remove from Favorites' : 'Add to Favorites'}
               </Button>
-            ) : (
+              ) : (
               <Box>
                 <Text>
                   <Link href="/login" fontWeight="bold" color="pink.700">
@@ -174,11 +146,10 @@ const EventsDetails = () => {
                     </Link> for an account to save this event.
                 </Text>
               </Box>
-            )
+              )
 
             }
               
-
           </VStack>
         </GridItem>
         <GridItem>

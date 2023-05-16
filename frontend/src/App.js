@@ -4,10 +4,11 @@ import { decodeToken } from 'react-jwt';
 import UserContext from './components/user/UserContext';
 import useLocalStorage from './hooks/useLocalStorage';
 import ConcertsApi from './api/api';
-import { Container, Spinner, AbsoluteCenter, Box, useColorMode } from '@chakra-ui/react';
+import { Container, useColorMode } from '@chakra-ui/react';
 
 import NavBar from "./routes-nav/NavBar";
-import Footer from "./routes-nav/Footer"
+import Footer from "./routes-nav/Footer";
+import LoadingSpinner from "./components/common/LoadingSpinner";
 import ComponentRoutes from "./routes-nav/ComponentRoutes";
 
 export const TOKEN_STORAGE_ID = "concerts-token";
@@ -109,17 +110,7 @@ const App = () => {
   // show spinner if components are still loading
   if (!loading) {
     return (
-      <Box position='relative' minHeight='100vh'>
-        <AbsoluteCenter p='4' axis='both'>
-          <Spinner
-            thickness='4px'
-            speed='0.65s'
-            emptyColor='gray.200'
-            color='pink.500'
-            size='xl'
-          />
-        </AbsoluteCenter>
-      </Box>
+      <LoadingSpinner />
     )
   }
 

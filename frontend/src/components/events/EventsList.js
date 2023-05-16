@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import EventCard from './EventCard';
+import LoadingSpinner from '../common/LoadingSpinner';
 import ConcertsApi from '../../api/api';
 
-import { Box, Heading, Center, Spinner, AbsoluteCenter, SimpleGrid, Icon } from '@chakra-ui/react';
+import { Box, Heading, Center, SimpleGrid, Icon } from '@chakra-ui/react';
 import useEmblaCarousel from 'embla-carousel-react'
 import AutoHeight from 'embla-carousel-auto-height'
 import './EventsList.css';
@@ -100,17 +101,7 @@ const EventsList = () => {
   // show spinner if still loading
   if (events.length === 0 && eventsMap.size === 0) {
     return (
-      <Box position='relative' minHeight='100vh'>
-        <AbsoluteCenter p='4' axis='both'>
-          <Spinner
-            thickness='4px'
-            speed='0.65s'
-            emptyColor='gray.200'
-            color='pink.500'
-            size='xl'
-          />
-        </AbsoluteCenter>
-      </Box>
+      <LoadingSpinner />
     );
   }
 

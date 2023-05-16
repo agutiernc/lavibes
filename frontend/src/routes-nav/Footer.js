@@ -35,7 +35,7 @@ const Footer = () => {
             <Text textAlign="center" mr={2}>
               By Alfonso Gutierrez
             </Text>
-            <Link href="https://github.com/agutiernc">
+            <Link href="https://github.com/agutiernc/capstone2">
               <Icon as={FaGithub} mx={3} boxSize={5} />
             </Link>
             <Text ml={2}>All rights reserved © 2023</Text>

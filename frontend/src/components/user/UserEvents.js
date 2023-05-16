@@ -2,10 +2,10 @@ import React, { useState, useContext, Fragment, useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import UserContext from './UserContext';
 import NoUserEvents from './NoUserEvents';
+import LoadingSpinner from '../common/LoadingSpinner';
 import { FaRegArrowAltCircleLeft } from 'react-icons/fa';
 import {
   Container,
-  Box,
   Flex,
   Stack,
   VStack,
@@ -16,8 +16,6 @@ import {
   Text,
   Heading,
   CloseButton,
-  Spinner,
-  AbsoluteCenter,
   Icon
 } from '@chakra-ui/react';
 
@@ -45,19 +43,10 @@ const UserEvents = () => {
     return <Navigate to={'/'} />;
   }
 
+  // show loading spinner if currentUser info is not loaded yet
   if (!currentUser) {
     return (
-      <Box position='relative' minHeight='100vh'>
-        <AbsoluteCenter p='4' axis='both'>
-          <Spinner
-            thickness='4px'
-            speed='0.65s'
-            emptyColor='gray.200'
-            color='pink.500'
-            size='xl'
-          />
-        </AbsoluteCenter>
-      </Box>
+      <LoadingSpinner />
     )
   }
   
