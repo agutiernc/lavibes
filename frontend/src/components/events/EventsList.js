@@ -26,7 +26,6 @@ const EventsList = () => {
       let events = await ConcertsApi.getAllEvents();
 
       setEvents(events);
-     
     }
 
     eventsList();
@@ -114,52 +113,53 @@ const EventsList = () => {
       </Box>
     );
   }
-  // fix bottom container/box
+
   return (
     <Box pb={25}>
-    <Box className="embla"  height={'auto'}>
-      <button className="embla__prev" onClick={scrollPrev} type="button">
-        <Icon as={BsChevronDoubleLeft} boxSize={7} color={'pink.700'} />
-      </button>
-      <button className="embla__next" onClick={scrollNext} type="button">
-        <Icon as={BsChevronDoubleRight} boxSize={7} color={'pink.700'} />
-      </button>
+      <Box className="embla" height={'auto'}>
+        <button className="embla__prev" onClick={scrollPrev} type="button">
+          <Icon as={BsChevronDoubleLeft} boxSize={7} color={'pink.700'} />
+        </button>
+        <button className="embla__next" onClick={scrollNext} type="button">
+          <Icon as={BsChevronDoubleRight} boxSize={7} color={'pink.700'} />
+        </button>
 
-      <div className="embla__viewport" ref={emblaRef}>
-        <div className="embla__container">
-          <div className="embla__slide">
-            <Center my={8}>
-              <Heading size={'xl'} className="embla__slide-heading" px={3} color={'pink.700'}>
-                June
-              </Heading>
-            </Center>
-            <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='30px' pb={70}>
-              {eventsBox('Jun')}
-            </SimpleGrid>
-          </div>
-          <div className="embla__slide">
-            <Center my={8}>
-              <Heading size={'xl'} className="embla__slide-heading" px={3} color={'pink.700'}>
-                July
-              </Heading>
-            </Center>
-            <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='30px' pb={70}>
-              {eventsBox('Jul')}
-            </SimpleGrid>
-          </div>
-          <div className="embla__slide">
-            <Center my={8}>
-              <Heading size={'xl'} className="embla__slide-heading" px={3} color={'pink.700'}>
-                August
-              </Heading>
-            </Center>
-            <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='30px' pb={70}>
-              {eventsBox('Aug')}
-            </SimpleGrid>
+        <div className="embla__viewport" ref={emblaRef}>
+          <div className="embla__container">
+            <div className="embla__slide">
+              <Center my={8}>
+                <Heading size={'xl'} className="embla__slide-heading" px={3} color={'pink.700'}>
+                  June
+                </Heading>
+              </Center>
+              <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='30px' pb={70}>
+                {eventsBox('Jun')}
+              </SimpleGrid>
+            </div>
+            <div className="embla__slide">
+              <Center my={8}>
+                <Heading size={'xl'} className="embla__slide-heading" px={3} color={'pink.700'}>
+                  July
+                </Heading>
+              </Center>
+              <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='30px' pb={70}>
+                {eventsBox('Jul')}
+              </SimpleGrid>
+            </div>
+            <div className="embla__slide">
+              <Center my={8}>
+                <Heading size={'xl'} className="embla__slide-heading" px={3} color={'pink.700'}>
+                  August
+                </Heading>
+              </Center>
+              <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing='30px' pb={70}>
+                {eventsBox('Aug')}
+              </SimpleGrid>
+            </div>
           </div>
         </div>
-      </div>
-    </Box>    </Box>
+      </Box>
+    </Box>
   )
 };
 

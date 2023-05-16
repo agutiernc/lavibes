@@ -96,21 +96,4 @@ class ConcertsApi {
   }
 }
 
-// remove this later
-// ConcertsApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-//     "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-//     "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
-
-
 export default ConcertsApi;
-
-
-// const BASE_URL = "http://localhost:3001";
-
-// export const getEvents = async () => {
-//   const res = await axios.get(`${BASE_URL}/events/data`)
-
-//   console.log(res)
-
-//   return res.data.events
-// }
