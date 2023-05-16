@@ -46,7 +46,6 @@ function ensureLoggedIn(req, res, next) {
   }
 }
 
-// add requireAdmin and ensureAdminOrCorrectUser
 
 /** Middleware for admin only actions
  * 
@@ -64,6 +63,7 @@ function requireAdmin(req, res, next) {
     return next(err);
   }
 }
+
 
 /** Middleware for admin or correct user only actions
  *  

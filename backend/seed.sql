@@ -23,6 +23,3 @@ VALUES (
   4,
   2019
 );
-
--- TO CONVERT SEE HERE:
--- https://stackoverflow.com/questions/5485502/how-to-format-bigint-field-into-a-date-in-postgresql
