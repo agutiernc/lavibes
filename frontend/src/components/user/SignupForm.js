@@ -9,14 +9,17 @@ import {
   Input,
   Button,
   Text,
-  useColorModeValue
+  useColorModeValue,
+  VStack,
 } from "@chakra-ui/react";
+
+import Notify from '../common/Notify';
 
 const SignupForm = ({ signup }) => {
   const bgColor = useColorModeValue('white', 'gray.900');
   const placeHolderColors = useColorModeValue('gray.500', 'gray.400');
   const navigate = useNavigate();
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, message, setMessage } = useContext(UserContext);
   const initialState = {
     username: '',
     password: '',
@@ -46,10 +49,16 @@ const SignupForm = ({ signup }) => {
 
     try {
       const res = await signup(formData);
-     
-      if (res) {
+
+      if (res.success) {
         navigate('/'); // redirect to main if success
       } else {
+        setMessage({ 
+          msg: 'Missing or incorrect info. Please, try again.',
+          type: 'error'
+        });
+        setFormData(initialState);
+
         return;
       }
 
@@ -60,9 +69,15 @@ const SignupForm = ({ signup }) => {
 
   return (
     <Box py={33} height={'90vh'}>
-      <Heading as='h2' textAlign='center' color='pink.700' mb={10}>
-        Register
-      </Heading>
+      <VStack my={5}>
+        <Heading as='h2' textAlign='center' color='pink.700' mb={10}>
+          Register
+        </Heading>
+
+        <Flex alignItems="center">
+          <Notify message={message} />
+        </Flex>
+      </VStack>
 
       <Flex maxWidth="full" align="center" justifyContent="center">
         <Box 

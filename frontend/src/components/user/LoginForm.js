@@ -50,8 +50,8 @@ const LoginForm = ({ login }) => {
     if (res.success) {
       navigate('/events');
     } else {
-      setMessage({ msg: 'Incorrect Username or Password', type: 'error' })
-      setFormData(initialValue)
+      setMessage({ msg: 'Incorrect Username or Password', type: 'error' });
+      setFormData(initialValue);
 
       return;
     }

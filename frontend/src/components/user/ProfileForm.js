@@ -12,6 +12,7 @@ import {
   Input,
   Stack,
   HStack,
+  VStack,
   Avatar,
   Center,
   Icon,
@@ -20,10 +21,12 @@ import {
   Text
 } from '@chakra-ui/react';
 
+import Notify from '../common/Notify';
+
 const ProfileForm = () => {
   const bgColor = useColorModeValue('white', 'gray.900');
   const placeHolderColors = useColorModeValue('gray.500', 'gray.400');
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser, message, setMessage } = useContext(UserContext);
   const initialValue = currentUser ? {
     password: '',
     passwordVerify: '',
@@ -61,8 +64,8 @@ const ProfileForm = () => {
 
     // verify password confirmation
     if (profileData.password !== formData.passwordVerify) {
-      console.log("password don't match!")
-      // add setMessage
+      setMessage({ msg: `Passwords don't match!`, type: 'error' });
+
       return;
     }
 
@@ -71,9 +74,13 @@ const ProfileForm = () => {
     try {
       updatedUser = await ConcertsApi.saveProfile(currentUser.username, profileData);
 
-      console.log('User info updated!')
+      setMessage({ msg: 'User info updated!', type: 'success' })
     } catch (err) {
-      console.log('unable to update user settings')
+      setMessage({
+        msg: 'Unable to update user settings. Please, try again.',
+        type: 'error'
+      });
+      setFormData(initialValue);
 
       return;
     }
@@ -84,7 +91,23 @@ const ProfileForm = () => {
 
   return (
     <Box height={['100vh', '90vh']} pt={35} mb={[88, 5]} pb={[18, 5, 20]}>
+      <VStack mb={5}>
+        <Heading
+          lineHeight={1}
+          fontSize={{ base: '2xl', sm: '3xl' }}
+          textAlign={'center'}
+          color={'pink.700'}
+        >
+          {currentUser.firstName}'s Settings
+        </Heading>
+
+        <Flex alignItems="center">
+          <Notify message={message} />
+        </Flex>
+      </VStack>
+
       <Flex align={'center'} justify={'center'} maxWidth={'full'}>
+        
         <Stack
           spacing={4}
           w={'sm'}
@@ -95,14 +118,6 @@ const ProfileForm = () => {
           p={7}
           bg={bgColor}
         >
-          <Heading
-            lineHeight={1}
-            fontSize={{ base: '2xl', sm: '3xl' }}
-            textAlign={'center'}
-            color={'pink.700'}
-          >
-            {currentUser.firstName}'s Settings
-          </Heading>
 
           <FormControl id="userName">
             <Stack spacing={6}>
