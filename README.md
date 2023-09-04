@@ -1,12 +1,22 @@
-# Capstone Two - Free Summer Concerts App
+# LA Vibes - Free Summer Concerts App
 
-## Project Title
-LA Vibes @ http://lavibes.surge.sh
+## Demo
+
+Demo @ http://lavibes.surge.sh
+
+**username:** `demotester`
+**password:** `demopassword`
+
+*Note:* There may be a delay when logging in as the database is initializing.
 
 ## Project API
 The API utilized in the app is sourced from Los Angeles County Arts and provided in CSV format. To make it compatible with the app's front-end, the data was converted to JSON. Since the original data cannot be fetched directly from the LA County website, the JSON file was placed in the back-end and can now be accessed by the front-end for displaying data. The API is solely used for data display purposes.
 
-https://data.lacounty.gov/datasets/lacounty::arts-free-concerts-in-la-county-public-sites/about
+~~https://data.lacounty.gov/datasets/lacounty::arts-free-concerts-in-la-county-public-sites/about~~
+
+**Note:** API has been moved, but the data does not include 2023 dates despite having an update.
+
+https://data.lacounty.gov/datasets/lacounty::arts-and-culture-free-concerts-history/about
 
 ## Description
 LA Vibes is a comprehensive full-stack app that allows users to easily access information on all free summer concerts happening in Los Angeles County, CA. With its user-friendly interface, the app provides a complete listing of events, including detailed information on each concert.
